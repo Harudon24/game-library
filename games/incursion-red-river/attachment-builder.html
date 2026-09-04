@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Incursion: Red River の武器とアタッチメントの互換関係を検索するツール。">
+<title>アタッチメント検索 | Incursion: Red River</title>
+<link rel="stylesheet" href="../../assets/css/common.css">
+<style>
+  .page-title{margin:0;font-size:clamp(34px,6vw,60px);line-height:1;letter-spacing:-.045em}
+  .intro{max-width:800px;margin:14px 0 0;color:#aaa;font-size:14px}
+  .notice{margin:18px 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#070707;color:#aaa;font-size:12px}
+  .panel{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+  .selector-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:10px}
+  .field label{display:block;margin:0 0 6px;color:#777;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .control{width:100%;border:1px solid var(--line);border-radius:10px;background:#030303;color:#fff;padding:11px 12px;font:inherit}
+  .control:focus{outline:none;border-color:#555}
+  .summary{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+  .summary span{border:1px solid #222;border-radius:999px;padding:5px 8px;color:#818181;font-size:11px}
+  .build{margin-top:16px;border:1px solid #262626;border-radius:14px;background:#0a0a0a;padding:14px}
+  .build-title{margin-bottom:10px;color:#777;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .chain-node{border:1px solid #303030;border-radius:10px;background:#111;padding:8px 10px;font-size:12px;font-weight:750}
+  .chain-node.weapon{border-color:#4b4b4b;color:#fff}
+  .chain-arrow{color:#555}
+  .filters{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:9px;margin:18px 0 13px}
+  .results-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:10px}
+  .results-head h2{margin:0;font-size:18px;letter-spacing:-.02em}
+  .results-head span{color:#666;font-size:11px}
+  .results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .attach-card{position:relative;border:1px solid #232323;border-radius:15px;background:#090909;padding:15px;min-height:150px}
+  .attach-card:hover{border-color:#454545}
+  .attach-card small{display:block;color:#717171;font-size:10px;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+  .attach-card h3{margin:7px 0 7px;font-size:16px;line-height:1.3}
+  .path-note{color:#969696;font-size:11px;line-height:1.5;min-height:34px}
+  .direct{color:var(--good)}
+  .via{color:var(--warn)}
+  .choose{margin-top:11px;border:1px solid #303030;border-radius:9px;background:#111;color:#ddd;padding:7px 9px;font:inherit;font-size:11px;font-weight:850;cursor:pointer}
+  .choose:hover{border-color:#555;background:#171717;color:#fff}
+  .loading,.empty,.error{padding:28px;border:1px solid var(--line);border-radius:15px;background:#070707;color:#777;text-align:center}
+  .error{color:#ff9a9a}
+  .source{margin-top:18px;color:#676767;font-size:11px}
+  .source a{color:#999}
+  @media(max-width:760px){.selector-grid,.filters,.results{grid-template-columns:1fr}.results{gap:9px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../">ゲームライブラリ</a>
+    <nav class="topnav" aria-label="ページナビゲーション">
+      <a href="./">Incursion: Red River</a>
+      <a href="../../">← TOPへ戻る</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs">
+    <a href="../../">ゲームライブラリ</a><span>/</span>
+    <a href="./">Incursion: Red River</a><span>/</span>
+    <span>アタッチメント検索</span>
+  </div>
+
+  <a class="back-link" href="./">← Incursion: Red River に戻る</a>
+  <div class="eyebrow">Weapon Attachments</div>
+  <h1 class="page-title">アタッチメント検索</h1>
+  <p class="intro">武器を選ぶと、その武器から装着可能なアタッチメントを互換関係に沿って表示します。レールやマウントが必要な場合は、必要な取り付け順まで表示します。</p>
+
+  <div class="notice">
+    例: <strong>武器 → RMR Mount → RMR Sight</strong> のように表示されたら、RMRは武器に直接は付かず、先にマウントが必要です。<br>
+    これはゲームデータ上の互換経路を検索する機能です。同じスロット同士の排他や、装着済みパーツとの物理的な干渉までは完全には判定しません。
+  </div>
+
+  <div id="app"><div class="loading">武器・アタッチメントデータを読み込み中…</div></div>
+
+  <div class="source">データ取得元: <a href="https://github.com/pompeiic/irr-item-editor" target="_blank" rel="noopener">irr-item-editor</a> の公開ゲームデータ。ページを開いた時点の最新JSONを読み込みます。</div>
+
+  <footer class="footer"><a class="back-link" href="./">← Incursion: Red River に戻る</a></footer>
+</main>
+
+<script>
+const WEAPONS_URL='https://raw.githubusercontent.com/pompeiic/irr-item-editor/refs/heads/main/Items_Weapons.json';
+const ATTACH_URL='https://raw.githubusercontent.com/pompeiic/irr-item-editor/refs/heads/main/Items_Attachments.json';
+let weapons=[], attachments=[], attachMap=new Map(), currentPaths=[], currentWeapon=null;
+
+const categoryJP={
+  'Sight':'サイト / スコープ','Rail':'レール / マウント','Tactical':'タクティカル','Muzzle':'マズル','Foregrip':'フォアグリップ',
+  'Stock':'ストック','Mag':'マガジン','Handguard':'ハンドガード','Barrel':'バレル','Dust Cover':'ダストカバー',
+  'Gas Tube':'ガスチューブ','Pistol Grip':'ピストルグリップ','Receiver':'レシーバー'
+};
+const categoryOrder=['Sight','Rail','Tactical','Muzzle','Foregrip','Stock','Mag','Handguard','Barrel','Dust Cover','Gas Tube','Pistol Grip','Receiver'];
+function esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML}
+function categoryOf(item){
+  const prefix='Inventory.Items.Attachments.';
+  if(!(item.itemTag||'').startsWith(prefix))return 'Other';
+  return item.itemTag.slice(prefix.length).split('.')[0]||'Other';
+}
+function labelCat(c){return categoryJP[c]||c||'その他'}
+function resolveSupported(tag){
+  const exact=attachMap.get(tag);
+  if(exact)return [exact];
+  const prefix=tag+'.';
+  return attachments.filter(x=>(x.itemTag||'').startsWith(prefix));
+}
+function buildReachable(weapon){
+  const best=new Map();
+  const queue=[{node:weapon,path:[weapon]}];
+  while(queue.length){
+    const {node,path}=queue.shift();
+    if(path.length>7)continue;
+    for(const supported of (node.supportedItemTags||[])){
+      for(const child of resolveSupported(supported)){
+        if(path.some(x=>x.itemTag===child.itemTag))continue;
+        const next=[...path,child];
+        const old=best.get(child.itemTag);
+        if(!old || next.length<old.length){
+          best.set(child.itemTag,next);
+          queue.push({node:child,path:next});
+        }
+      }
+    }
+  }
+  return [...best.values()];
+}
+function pathText(path){
+  if(path.length===2)return '<span class="direct">武器に直接装着</span>';
+  return '<span class="via">必要: '+path.slice(1,-1).map(x=>esc(x.name)).join(' → ')+'</span>';
+}
+function renderChain(path){
+  const box=document.getElementById('buildBox');
+  if(!box)return;
+  if(!path){box.innerHTML='<div class="build-title">選択中の構成</div><div style="color:#666;font-size:12px">候補の「この構成を見る」を押すと、必要な取り付け順をここに表示します。</div>';return}
+  box.innerHTML='<div class="build-title">選択中の構成</div><div class="chain">'+path.map((x,i)=>`${i?'<span class="chain-arrow">→</span>':''}<span class="chain-node ${i===0?'weapon':''}">${esc(x.name)}</span>`).join('')+'</div>';
+}
+function renderResults(){
+  const q=document.getElementById('attachSearch').value.trim().toLowerCase();
+  const cat=document.getElementById('categoryFilter').value;
+  const rows=currentPaths.filter(path=>{
+    const item=path[path.length-1];
+    return (cat==='all'||categoryOf(item)===cat) && (!q||(item.name||'').toLowerCase().includes(q));
+  }).sort((a,b)=>{
+    const ac=categoryOrder.indexOf(categoryOf(a[a.length-1]));
+    const bc=categoryOrder.indexOf(categoryOf(b[b.length-1]));
+    return (ac<0?99:ac)-(bc<0?99:bc) || a.length-b.length || (a[a.length-1].name||'').localeCompare(b[b.length-1].name||'');
+  });
+  document.getElementById('resultCount').textContent=rows.length+'件';
+  const result=document.getElementById('results');
+  if(!rows.length){result.innerHTML='<div class="empty" style="grid-column:1/-1">該当するアタッチメントがありません。</div>';return}
+  result.innerHTML=rows.map((path,index)=>{
+    const item=path[path.length-1], catName=labelCat(categoryOf(item));
+    return `<div class="attach-card"><small>${esc(catName)}</small><h3>${esc(item.name)}</h3><div class="path-note">${pathText(path)}</div><button class="choose" data-path-index="${currentPaths.indexOf(path)}">この構成を見る</button></div>`;
+  }).join('');
+}
+function selectWeapon(tag){
+  currentWeapon=weapons.find(w=>w.itemTag===tag)||weapons[0];
+  currentPaths=buildReachable(currentWeapon);
+  const cats=[...new Set(currentPaths.map(p=>categoryOf(p[p.length-1])))].sort((a,b)=>{
+    const ai=categoryOrder.indexOf(a),bi=categoryOrder.indexOf(b);return (ai<0?99:ai)-(bi<0?99:bi)||a.localeCompare(b);
+  });
+  const cf=document.getElementById('categoryFilter');
+  cf.innerHTML='<option value="all">すべてのカテゴリ</option>'+cats.map(c=>`<option value="${esc(c)}">${esc(labelCat(c))}</option>`).join('');
+  document.getElementById('attachSearch').value='';
+  document.getElementById('weaponName').textContent=currentWeapon.name;
+  const direct=currentPaths.filter(p=>p.length===2).length;
+  document.getElementById('directCount').textContent='直接 '+direct+'件';
+  document.getElementById('reachableCount').textContent='経路込み '+currentPaths.length+'件';
+  renderChain(null);renderResults();
+}
+function setup(){
+  weapons.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  attachMap=new Map(attachments.map(a=>[a.itemTag,a]));
+  const app=document.getElementById('app');
+  app.innerHTML=`
+    <div class="panel">
+      <div class="selector-grid">
+        <div class="field"><label>武器</label><select id="weaponSelect" class="control"></select></div>
+        <div class="field"><label>選択中</label><div class="control" style="color:#bbb" id="weaponName"></div></div>
+      </div>
+      <div class="summary"><span id="directCount"></span><span id="reachableCount"></span></div>
+      <div class="build" id="buildBox"></div>
+    </div>
+    <div class="filters">
+      <input id="attachSearch" class="control" type="search" placeholder="付けたいアタッチメント名で検索… 例: RMR / EOTECH">
+      <select id="categoryFilter" class="control"><option value="all">すべてのカテゴリ</option></select>
+    </div>
+    <div class="results-head"><h2>装着できる候補</h2><span id="resultCount"></span></div>
+    <div class="results" id="results"></div>`;
+  const ws=document.getElementById('weaponSelect');
+  ws.innerHTML=weapons.map(w=>`<option value="${esc(w.itemTag)}">${esc(w.name)}</option>`).join('');
+  const defaultWeapon=weapons.find(w=>/M4A1/i.test(w.name||''))||weapons[0];
+  ws.value=defaultWeapon.itemTag;
+  ws.addEventListener('change',()=>selectWeapon(ws.value));
+  document.getElementById('attachSearch').addEventListener('input',renderResults);
+  document.getElementById('categoryFilter').addEventListener('change',renderResults);
+  document.getElementById('results').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-path-index]');if(!b)return;
+    const path=currentPaths[Number(b.dataset.pathIndex)];if(path)renderChain(path);
+  });
+  selectWeapon(defaultWeapon.itemTag);
+}
+async function init(){
+  try{
+    const [wr,ar]=await Promise.all([fetch(WEAPONS_URL,{cache:'no-cache'}),fetch(ATTACH_URL,{cache:'no-cache'})]);
+    if(!wr.ok||!ar.ok)throw new Error('HTTP '+wr.status+'/'+ar.status);
+    const [wd,ad]=await Promise.all([wr.json(),ar.json()]);
+    weapons=Array.isArray(wd.items)?wd.items:[];
+    attachments=Array.isArray(ad.items)?ad.items:[];
+    if(!weapons.length||!attachments.length)throw new Error('empty data');
+    setup();
+  }catch(err){
+    document.getElementById('app').innerHTML='<div class="error">データの読み込みに失敗しました。時間を置いて再読み込みしてください。</div>';
+    console.error(err);
+  }
+}
+init();
+</script>
+</body>
+</html>
