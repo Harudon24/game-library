@@ -8,23 +8,50 @@
   <link rel="stylesheet" href="../../assets/css/common.css">
   <style>
     .need-panel{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
-    .need-form{display:grid;grid-template-columns:minmax(0,1fr) 120px auto;gap:9px}
+    .purpose-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}
     .need-input{width:100%;border:1px solid var(--line);border-radius:10px;background:#030303;color:#fff;padding:11px 12px;font:inherit}
     .need-input:focus{outline:none;border-color:#555}
     .need-button{border:1px solid var(--line);border-radius:10px;background:#111;color:#eee;padding:10px 13px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
     .need-button:hover{border-color:#555;background:#161616}
-    .need-list{display:grid;gap:9px;margin-top:14px}
+    .purpose-list{display:grid;gap:12px;margin-top:14px}
     .need-empty{padding:18px 4px 3px;color:#6f6f6f;font-size:13px}
-    .need-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:13px 14px;border:1px solid #202020;border-radius:13px;background:#0b0b0b}
-    .need-name{min-width:0;font-weight:800;overflow-wrap:anywhere}
-    .need-count{color:#cfcfcf;white-space:nowrap;font-variant-numeric:tabular-nums}
-    .need-count b{color:#fff;font-size:19px;margin:0 3px}
-    .need-actions{display:flex;gap:6px}
-    .need-actions button{min-width:34px;height:34px;border:1px solid #2a2a2a;border-radius:8px;background:#111;color:#ddd;cursor:pointer;font-weight:800}
-    .need-actions button:hover{border-color:#555;background:#181818}
-    .need-actions .delete{color:#ff9a9a}
+    .purpose-card{border:1px solid #232323;border-radius:16px;background:#0a0a0a;overflow:hidden}
+    .purpose-head{display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid #1d1d1d;background:#0d0d0d}
+    .priority-badge{flex:none;border:1px solid #303030;border-radius:999px;padding:5px 9px;color:#bdbdbd;background:#080808;font-size:11px;font-weight:900;white-space:nowrap}
+    .purpose-name{min-width:0;flex:1;font-size:16px;font-weight:900;overflow-wrap:anywhere}
+    .purpose-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .purpose-actions button,.req-actions button{min-width:34px;height:34px;border:1px solid #2a2a2a;border-radius:8px;background:#111;color:#ddd;cursor:pointer;font-weight:800}
+    .purpose-actions button:hover,.req-actions button:hover{border-color:#555;background:#181818}
+    .purpose-actions .delete,.req-actions .delete{color:#ff9a9a}
+    .purpose-body{padding:14px}
+    .req-add{display:grid;grid-template-columns:minmax(0,1fr) 110px 110px auto;gap:8px;margin-bottom:12px}
+    .field-wrap{display:grid;gap:4px}
+    .field-wrap label{color:#767676;font-size:10px;font-weight:800;letter-spacing:.04em}
+    .req-list{display:grid;gap:8px}
+    .req-row{display:grid;grid-template-columns:minmax(0,1fr) 112px 112px auto;align-items:end;gap:9px;padding:11px 12px;border:1px solid #1f1f1f;border-radius:12px;background:#080808}
+    .req-name{min-width:0;font-weight:800;overflow-wrap:anywhere;padding-bottom:10px}
+    .req-num{display:grid;gap:4px}
+    .req-num label{color:#6f6f6f;font-size:10px;font-weight:800}
+    .req-num input{width:100%;border:1px solid #272727;border-radius:8px;background:#030303;color:#fff;padding:8px 9px;font:inherit;font-variant-numeric:tabular-nums}
+    .req-num input:focus{outline:none;border-color:#555}
+    .req-actions{display:flex;gap:6px;align-items:center;padding-bottom:1px}
+    .progress-text{margin-top:7px;color:#777;font-size:11px}
+    .progress-text strong{color:#bdbdbd}
     .need-help{margin-top:10px;color:#707070;font-size:11px}
-    @media(max-width:650px){.need-form{grid-template-columns:1fr 92px}.need-form .need-button{grid-column:1/-1}.need-row{grid-template-columns:1fr auto}.need-actions{grid-column:1/-1;justify-content:flex-end}}
+    @media(max-width:760px){
+      .purpose-head{align-items:flex-start;flex-wrap:wrap}
+      .purpose-name{flex-basis:calc(100% - 90px)}
+      .purpose-actions{width:100%;justify-content:flex-start}
+      .req-add{grid-template-columns:1fr 1fr}
+      .req-add .item-field{grid-column:1/-1}
+      .req-add .need-button{grid-column:1/-1}
+      .req-row{grid-template-columns:1fr 1fr}
+      .req-name{grid-column:1/-1;padding-bottom:0}
+      .req-actions{grid-column:1/-1;justify-content:flex-end}
+    }
+    @media(max-width:520px){
+      .purpose-add{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -34,7 +61,7 @@
     <nav class="topnav" aria-label="ゲーム内ナビゲーション">
       <a href="../../">← TOPへ戻る</a>
       <a href="#guides">ガイド</a>
-      <a href="#requirements">必要数メモ</a>
+      <a href="#requirements">必要素材メモ</a>
       <a href="#notes">メモ</a>
     </nav>
   </header>
@@ -68,15 +95,14 @@
   </section>
 
   <section class="section" id="requirements">
-    <div class="section-head"><h2 class="section-title">必要数メモ</h2><div class="section-note">あと何個必要かを一時保存</div></div>
+    <div class="section-head"><h2 class="section-title">必要素材メモ</h2><div class="section-note">用途ごとに優先順位と必要数を管理</div></div>
     <div class="need-panel">
-      <form class="need-form" id="needForm">
-        <input class="need-input" id="needName" type="text" placeholder="例: Fuel" autocomplete="off" required>
-        <input class="need-input" id="needCount" type="number" min="0" step="1" value="1" aria-label="必要数" required>
-        <button class="need-button" type="submit">追加</button>
+      <form class="purpose-add" id="purposeForm">
+        <input class="need-input" id="purposeName" type="text" placeholder="何用？ 例: Stash Lv2 / Hideout Upgrade" autocomplete="off" required>
+        <button class="need-button" type="submit">用途を追加</button>
       </form>
-      <div class="need-list" id="needList"></div>
-      <div class="need-help">− / ＋ で必要数をすぐ更新できます。内容はこのブラウザに保存されます。</div>
+      <div class="purpose-list" id="purposeList"></div>
+      <div class="need-help">上にある用途ほど優先度が高いです。↑ / ↓ であとから並べ替えできます。内容はこのブラウザに保存されます。</div>
     </div>
   </section>
 
@@ -90,31 +116,175 @@
 </main>
 
 <script>
-const NEED_KEY='irr-required-items-v1';
-function loadNeeds(){try{const d=JSON.parse(localStorage.getItem(NEED_KEY)||'[]');return Array.isArray(d)?d:[]}catch{return []}}
-function saveNeeds(items){localStorage.setItem(NEED_KEY,JSON.stringify(items))}
-function escapeHtml(text){const div=document.createElement('div');div.textContent=text;return div.innerHTML}
-function renderNeeds(){
-  const list=document.getElementById('needList'),items=loadNeeds();
-  if(items.length===0){list.innerHTML='<div class="need-empty">まだ必要数メモはありません。</div>';return}
-  list.innerHTML=items.map((item,index)=>`<div class="need-row"><div class="need-name">${escapeHtml(item.name)}</div><div class="need-count">あと <b>${item.count}</b> 個</div><div class="need-actions"><button type="button" data-action="minus" data-index="${index}" title="1個減らす">−</button><button type="button" data-action="plus" data-index="${index}" title="1個増やす">＋</button><button type="button" class="delete" data-action="delete" data-index="${index}" title="削除">削除</button></div></div>`).join('');
+const OLD_KEY='irr-required-items-v1';
+const NEED_KEY='irr-requirement-groups-v2';
+
+function makeId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function escapeHtml(text){const div=document.createElement('div');div.textContent=String(text??'');return div.innerHTML}
+function clampInt(value,min=0){const n=parseInt(value,10);return Number.isFinite(n)?Math.max(min,n):min}
+
+function migrateOldData(){
+  if(localStorage.getItem(NEED_KEY)!==null)return;
+  try{
+    const old=JSON.parse(localStorage.getItem(OLD_KEY)||'[]');
+    if(Array.isArray(old)&&old.length){
+      const purpose={id:makeId(),name:'未分類',items:old.map(x=>({id:makeId(),name:String(x.name||'').trim()||'Item',total:clampInt(x.count,0),remaining:clampInt(x.count,0)}))};
+      localStorage.setItem(NEED_KEY,JSON.stringify([purpose]));
+    }else{
+      localStorage.setItem(NEED_KEY,'[]');
+    }
+  }catch{
+    localStorage.setItem(NEED_KEY,'[]');
+  }
 }
-document.getElementById('needForm').addEventListener('submit',event=>{
-  event.preventDefault();const nameInput=document.getElementById('needName'),countInput=document.getElementById('needCount');
-  const name=nameInput.value.trim(),count=Math.max(0,parseInt(countInput.value,10)||0);if(!name)return;
-  const items=loadNeeds(),existing=items.find(item=>item.name.toLowerCase()===name.toLowerCase());
-  if(existing){existing.count=count;existing.name=name}else items.push({name,count});
-  saveNeeds(items);nameInput.value='';countInput.value='1';nameInput.focus();renderNeeds();
+
+function loadPurposes(){
+  migrateOldData();
+  try{
+    const data=JSON.parse(localStorage.getItem(NEED_KEY)||'[]');
+    return Array.isArray(data)?data:[];
+  }catch{return []}
+}
+function savePurposes(items){localStorage.setItem(NEED_KEY,JSON.stringify(items))}
+
+function renderPurposes(){
+  const host=document.getElementById('purposeList');
+  const purposes=loadPurposes();
+  if(!purposes.length){
+    host.innerHTML='<div class="need-empty">まだ用途はありません。まず「Stash Lv2」などの用途を追加してください。</div>';
+    return;
+  }
+
+  host.innerHTML=purposes.map((purpose,pIndex)=>{
+    const rows=(purpose.items||[]).map(item=>{
+      const total=clampInt(item.total,0);
+      const remaining=Math.min(clampInt(item.remaining,0),Math.max(total,clampInt(item.remaining,0)));
+      const collected=Math.max(0,total-remaining);
+      return `<div class="req-row" data-item-id="${item.id}">
+        <div class="req-name">${escapeHtml(item.name)}</div>
+        <div class="req-num"><label>要求数</label><input type="number" min="0" step="1" value="${total}" data-action="total" data-purpose-id="${purpose.id}" data-item-id="${item.id}"></div>
+        <div class="req-num"><label>あと必要</label><input type="number" min="0" step="1" value="${remaining}" data-action="remaining" data-purpose-id="${purpose.id}" data-item-id="${item.id}"></div>
+        <div class="req-actions"><button type="button" class="delete" data-action="delete-item" data-purpose-id="${purpose.id}" data-item-id="${item.id}">削除</button></div>
+        <div class="progress-text" style="grid-column:1/-1">所持済み目安: <strong>${collected}</strong> / ${total}</div>
+      </div>`;
+    }).join('');
+
+    return `<article class="purpose-card" data-purpose-id="${purpose.id}">
+      <div class="purpose-head">
+        <span class="priority-badge">優先 ${pIndex+1}</span>
+        <div class="purpose-name">${escapeHtml(purpose.name)}</div>
+        <div class="purpose-actions">
+          <button type="button" data-action="move-up" data-purpose-id="${purpose.id}" title="優先順位を上げる" ${pIndex===0?'disabled':''}>↑</button>
+          <button type="button" data-action="move-down" data-purpose-id="${purpose.id}" title="優先順位を下げる" ${pIndex===purposes.length-1?'disabled':''}>↓</button>
+          <button type="button" data-action="rename-purpose" data-purpose-id="${purpose.id}">名前変更</button>
+          <button type="button" class="delete" data-action="delete-purpose" data-purpose-id="${purpose.id}">削除</button>
+        </div>
+      </div>
+      <div class="purpose-body">
+        <form class="req-add" data-purpose-id="${purpose.id}">
+          <div class="field-wrap item-field"><label>アイテム</label><input class="need-input" name="itemName" type="text" placeholder="例: Fuel" autocomplete="off" required></div>
+          <div class="field-wrap"><label>要求数</label><input class="need-input" name="total" type="number" min="0" step="1" value="1" required></div>
+          <div class="field-wrap"><label>あと必要</label><input class="need-input" name="remaining" type="number" min="0" step="1" value="1" required></div>
+          <button class="need-button" type="submit">追加</button>
+        </form>
+        <div class="req-list">${rows||'<div class="need-empty">この用途にはまだ必要アイテムがありません。</div>'}</div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+document.getElementById('purposeForm').addEventListener('submit',event=>{
+  event.preventDefault();
+  const input=document.getElementById('purposeName');
+  const name=input.value.trim();
+  if(!name)return;
+  const purposes=loadPurposes();
+  purposes.push({id:makeId(),name,items:[]});
+  savePurposes(purposes);
+  input.value='';
+  input.focus();
+  renderPurposes();
 });
-document.getElementById('needList').addEventListener('click',event=>{
-  const button=event.target.closest('button[data-action]');if(!button)return;
-  const index=Number(button.dataset.index),action=button.dataset.action,items=loadNeeds();if(!items[index])return;
-  if(action==='minus')items[index].count=Math.max(0,items[index].count-1);
-  if(action==='plus')items[index].count+=1;
-  if(action==='delete')items.splice(index,1);
-  saveNeeds(items);renderNeeds();
+
+document.getElementById('purposeList').addEventListener('submit',event=>{
+  const form=event.target.closest('.req-add');
+  if(!form)return;
+  event.preventDefault();
+  const purposeId=form.dataset.purposeId;
+  const name=form.elements.itemName.value.trim();
+  let total=clampInt(form.elements.total.value,0);
+  let remaining=clampInt(form.elements.remaining.value,0);
+  if(!name)return;
+  if(remaining>total)total=remaining;
+  const purposes=loadPurposes();
+  const purpose=purposes.find(p=>p.id===purposeId);
+  if(!purpose)return;
+  purpose.items=Array.isArray(purpose.items)?purpose.items:[];
+  const existing=purpose.items.find(i=>i.name.toLowerCase()===name.toLowerCase());
+  if(existing){existing.name=name;existing.total=total;existing.remaining=remaining}
+  else purpose.items.push({id:makeId(),name,total,remaining});
+  savePurposes(purposes);
+  renderPurposes();
 });
-renderNeeds();
+
+document.getElementById('purposeList').addEventListener('click',event=>{
+  const button=event.target.closest('button[data-action]');
+  if(!button)return;
+  const action=button.dataset.action;
+  const purposeId=button.dataset.purposeId;
+  const itemId=button.dataset.itemId;
+  const purposes=loadPurposes();
+  const index=purposes.findIndex(p=>p.id===purposeId);
+  if(index<0)return;
+
+  if(action==='move-up'&&index>0){[purposes[index-1],purposes[index]]=[purposes[index],purposes[index-1]]}
+  if(action==='move-down'&&index<purposes.length-1){[purposes[index+1],purposes[index]]=[purposes[index],purposes[index+1]]}
+  if(action==='rename-purpose'){
+    const next=prompt('用途名を変更',purposes[index].name);
+    if(next===null)return;
+    const name=next.trim();
+    if(!name)return;
+    purposes[index].name=name;
+  }
+  if(action==='delete-purpose'){
+    if(!confirm(`「${purposes[index].name}」を削除しますか？`))return;
+    purposes.splice(index,1);
+  }
+  if(action==='delete-item'){
+    const items=purposes[index].items||[];
+    const itemIndex=items.findIndex(i=>i.id===itemId);
+    if(itemIndex<0)return;
+    items.splice(itemIndex,1);
+  }
+  savePurposes(purposes);
+  renderPurposes();
+});
+
+document.getElementById('purposeList').addEventListener('change',event=>{
+  const input=event.target.closest('input[data-action]');
+  if(!input)return;
+  const action=input.dataset.action;
+  const purposeId=input.dataset.purposeId;
+  const itemId=input.dataset.itemId;
+  const purposes=loadPurposes();
+  const purpose=purposes.find(p=>p.id===purposeId);
+  if(!purpose)return;
+  const item=(purpose.items||[]).find(i=>i.id===itemId);
+  if(!item)return;
+
+  if(action==='total'){
+    item.total=clampInt(input.value,0);
+    if(item.remaining>item.total)item.remaining=item.total;
+  }
+  if(action==='remaining'){
+    item.remaining=clampInt(input.value,0);
+    if(item.remaining>item.total)item.total=item.remaining;
+  }
+  savePurposes(purposes);
+  renderPurposes();
+});
+
+renderPurposes();
 </script>
 </body>
 </html>
