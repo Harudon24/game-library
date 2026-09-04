@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Incursion: Red River practical barter item sell/keep reference.">
-  <title>Barter Items | Incursion: Red River</title>
+  <meta name="description" content="Incursion: Red River の換金・素材アイテムを「売る / 残す」で整理した実用表。">
+  <title>換金・素材アイテム | Incursion: Red River</title>
   <link rel="stylesheet" href="../../assets/css/common.css">
   <style>
     .guide-title{margin:0;font-size:clamp(34px,6vw,60px);letter-spacing:-.045em;line-height:1}
@@ -37,58 +37,58 @@
 <body>
 <main class="shell">
   <header class="topbar">
-    <a class="brand" href="../../">GAME LIBRARY</a>
-    <nav class="topnav" aria-label="Page navigation">
+    <a class="brand" href="../../">ゲームライブラリ</a>
+    <nav class="topnav" aria-label="ページナビゲーション">
       <a href="./">Incursion: Red River</a>
     </nav>
   </header>
 
   <div class="breadcrumbs">
-    <a href="../../">Game Library</a><span>/</span>
+    <a href="../../">ゲームライブラリ</a><span>/</span>
     <a href="./">Incursion: Red River</a><span>/</span>
-    <span>Barter Items</span>
+    <span>換金・素材アイテム</span>
   </div>
 
-  <a class="back-link" href="./">← Back to Incursion: Red River</a>
-  <div class="eyebrow">Loot Reference</div>
-  <h1 class="guide-title">Barter Items</h1>
+  <a class="back-link" href="./">← Incursion: Red River に戻る</a>
+  <div class="eyebrow">ルート品リファレンス</div>
+  <h1 class="guide-title">換金・素材アイテム</h1>
   <p class="guide-intro">
-    A practical reference for deciding what to sell and what to keep.
-    Search by item name, filter by recommendation, or sort by value per slot.
+    拾ったアイテムを「売る / 残す」のどちらにするか、すぐ判断するための実用表です。
+    アイテム名で検索、判定で絞り込み、1マスあたりの価値で並べ替えできます。
   </p>
 
   <div class="warning">
-    This is a practical personal reference, not a permanent source of truth.
-    Task and upgrade requirements can change with game updates. “Keep 1–2” means
-    the item is cheap insurance until its current use is confirmed.
+    これはプレイ用の実用メモで、将来も必ず正しいことを保証するものではありません。
+    アップデートでタスクや施設アップグレードの要求品が変わる可能性があります。
+    「1〜2個残す」は、現在の用途が確定するまで少数だけ保管するという目安です。
   </div>
 
   <div class="controls">
-    <input id="search" class="search" type="search" placeholder="Search items…">
-    <button class="active" data-filter="all">All</button>
-    <button data-filter="sell">Sell</button>
-    <button data-filter="hold">Keep 1–2</button>
-    <button data-filter="keep">Priority Keep</button>
-    <button id="sortValue">Value / Slot</button>
+    <input id="search" class="search" type="search" placeholder="アイテム名で検索…">
+    <button class="active" data-filter="all">全部</button>
+    <button data-filter="sell">売ってOK</button>
+    <button data-filter="hold">1〜2個残す</button>
+    <button data-filter="keep">優先確保</button>
+    <button id="sortValue">1マス価値順</button>
   </div>
 
   <div class="legend">
-    <span class="legend-item"><span class="dot sell"></span>Sell</span>
-    <span class="legend-item"><span class="dot hold"></span>Keep 1–2</span>
-    <span class="legend-item"><span class="dot keep"></span>Priority Keep</span>
+    <span class="legend-item"><span class="dot sell"></span>売ってOK</span>
+    <span class="legend-item"><span class="dot hold"></span>1〜2個残す</span>
+    <span class="legend-item"><span class="dot keep"></span>優先確保</span>
   </div>
 
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th>Stored</th>
-          <th>Item</th>
-          <th>Recommendation</th>
-          <th class="num">Sell Value</th>
-          <th class="num">Slots</th>
-          <th class="num">Value / Slot</th>
-          <th>Reason / Note</th>
+          <th>確保済</th>
+          <th>アイテム</th>
+          <th>判定</th>
+          <th class="num">売値</th>
+          <th class="num">マス</th>
+          <th class="num">1マス価値</th>
+          <th>理由 / メモ</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -96,13 +96,13 @@
   </div>
 
   <footer class="footer">
-    Last updated: 2026-09-04 · Incursion: Red River
+    最終更新: 2026-09-04 · Incursion: Red River
   </footer>
 </main>
 
 <script>
-const items = [{"name":"Golden Bangle","price":16000,"slots":1,"vps":16000,"status":"sell","note":"High-value collectible; sell-first item."},{"name":"Golden Ring","price":12088,"slots":1,"vps":12088,"status":"sell","note":"High-value collectible; sell-first item."},{"name":"Matryoshka","price":10305,"slots":1,"vps":10305,"status":"sell","note":"High-value barter collectible."},{"name":"Cat Figure","price":8240,"slots":2,"vps":4120,"status":"sell","note":"Good cash item. Keep one only if you prefer to hedge against future task changes."},{"name":"Golden Watering Can","price":10720,"slots":4,"vps":2680,"status":"sell","note":"Golden collectible; mainly valuable for cash."},{"name":"Golden Mirror","price":6920,"slots":4,"vps":1730,"status":"sell","note":"Golden collectible; mainly valuable for cash."},{"name":"Antique Plate","price":4656,"slots":4,"vps":1164,"status":"sell","note":"Collectible-style loot; sell when space matters."},{"name":"Inca Vase","price":1608,"slots":2,"vps":804,"status":"sell","note":"Collectible-style loot."},{"name":"Soccer Trophy","price":789,"slots":2,"vps":394.5,"status":"sell","note":"Collectible-style loot."},{"name":"Soviet Figure","price":280,"slots":1,"vps":280,"status":"sell","note":"Collectible-style loot."},{"name":"Puzzle Cube","price":64,"slots":1,"vps":64,"status":"sell","note":"Low-value collectible."},{"name":"Boardgame","price":200,"slots":4,"vps":50,"status":"sell","note":"Low value for its size; sell early when inventory is tight."},{"name":"Basketball","price":86,"slots":2,"vps":43,"status":"sell","note":"Low value for its size."},{"name":"Earth Globe","price":74,"slots":2,"vps":37,"status":"sell","note":"Low value for its size."},{"name":"Candle Holder","price":72,"slots":4,"vps":18,"status":"sell","note":"Very poor value per slot."},{"name":"Book","price":64,"slots":4,"vps":16,"status":"sell","note":"Very poor value per slot."},{"name":"Soap","price":5,"slots":1,"vps":5,"status":"sell","note":"Low-value misc loot."},{"name":"Shampoo","price":34,"slots":2,"vps":17,"status":"sell","note":"Low-value misc loot."},{"name":"Shaving Cream","price":31,"slots":1,"vps":31,"status":"sell","note":"Low-value misc loot."},{"name":"Bathroom Cleaner","price":10,"slots":2,"vps":5,"status":"sell","note":"Low-value misc loot."},{"name":"Fuel","price":152,"slots":4,"vps":38,"status":"keep","note":"Used for upgrades. Prioritize keeping the amount you still need."},{"name":"Power Cable","price":106,"slots":4,"vps":26.5,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Rope","price":64,"slots":4,"vps":16,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Car Battery","price":720,"slots":6,"vps":120,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Graphic Card / GPU","price":2025,"slots":1,"vps":2025,"status":"hold","note":"Compact and valuable; keep a small reserve until task/upgrade needs are confirmed."},{"name":"Hard Drive","price":2538,"slots":2,"vps":1269,"status":"hold","note":"Electronic component; keep a small reserve."},{"name":"Military Radio","price":1972,"slots":2,"vps":986,"status":"hold","note":"Communication item; keep a small reserve."},{"name":"Cuban Cigar","price":960,"slots":1,"vps":960,"status":"hold","note":"Good value, but keeping 1–2 is a safe task hedge."},{"name":"Generator","price":4960,"slots":6,"vps":826.67,"status":"hold","note":"Large but equipment-like; keeping one is a reasonable hedge."},{"name":"DSLR Camera","price":740,"slots":1,"vps":740,"status":"hold","note":"Compact task-like item; keep 1–2."},{"name":"Compass","price":667,"slots":1,"vps":667,"status":"hold","note":"Compact; keep 1–2 until no longer needed."},{"name":"Motherboard","price":502,"slots":1,"vps":502,"status":"hold","note":"Electronic component; keep a small reserve."},{"name":"Battery PP3","price":416,"slots":1,"vps":416,"status":"hold","note":"Battery/material item; keep a small reserve."},{"name":"Film Case","price":346,"slots":1,"vps":346,"status":"hold","note":"Tiny footprint; keeping 1–2 is cheap insurance."},{"name":"Health Injector","price":258,"slots":1,"vps":258,"status":"hold","note":"Useful/consumable-looking item; retain a small reserve."},{"name":"Plastic Wire Spool","price":777,"slots":4,"vps":194.25,"status":"hold","note":"Material-like item; keep 1–2."},{"name":"Walkie Talkie","price":188,"slots":1,"vps":188,"status":"hold","note":"Communication item; keep a small reserve."},{"name":"Water Pitcher","price":367,"slots":2,"vps":183.5,"status":"hold","note":"Unclear utility; keep one if storage allows."},{"name":"Brandy","price":344,"slots":2,"vps":172,"status":"hold","note":"Possible task-style item; keep one."},{"name":"Marlboro Cigarette","price":160,"slots":1,"vps":160,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Cigar","price":158,"slots":1,"vps":158,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Thang Long Cigarette","price":144,"slots":1,"vps":144,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Toolbox","price":256,"slots":2,"vps":128,"status":"hold","note":"Tool/upgrade-style material; keep a small reserve."},{"name":"Painkiller","price":120,"slots":1,"vps":120,"status":"hold","note":"Consumable; keep what you actually use."},{"name":"Sewing Kit","price":120,"slots":1,"vps":120,"status":"hold","note":"Craft/upgrade-style material; keep a small reserve."},{"name":"Nails","price":28,"slots":1,"vps":28,"status":"hold","note":"Construction-style material; keep a small reserve."},{"name":"Duct Tape","price":16,"slots":1,"vps":16,"status":"hold","note":"General-purpose material; keep a small reserve."},{"name":"WD40","price":40,"slots":1,"vps":40,"status":"hold","note":"Tool/material item; keep a small reserve."},{"name":"Saw","price":160,"slots":2,"vps":80,"status":"hold","note":"Tool item; keep one."},{"name":"Bolt Cutter","price":160,"slots":2,"vps":80,"status":"hold","note":"Tool item; keep one."},{"name":"Clamp","price":50,"slots":1,"vps":50,"status":"hold","note":"Tool item; keep a small reserve."},{"name":"Hammer","price":18,"slots":2,"vps":9,"status":"hold","note":"Tool item; keep one."},{"name":"Nylon","price":16,"slots":2,"vps":8,"status":"hold","note":"Material; keep a small reserve."},{"name":"Polyester Fabric","price":96,"slots":2,"vps":48,"status":"hold","note":"Material; keep a small reserve."},{"name":"Paintbrush","price":64,"slots":1,"vps":64,"status":"hold","note":"Tool/material item; keep one."},{"name":"Spraycan","price":20,"slots":1,"vps":20,"status":"hold","note":"Material-like item; keep a small reserve."},{"name":"Old Communicator","price":283,"slots":4,"vps":70.75,"status":"hold","note":"Communication item; keep one."},{"name":"Old Radio","price":75,"slots":4,"vps":18.75,"status":"hold","note":"Communication item; keep one."},{"name":"Field Radio","price":76,"slots":2,"vps":38,"status":"hold","note":"Communication item; keep one."},{"name":"Old Flashlight","price":18,"slots":1,"vps":18,"status":"hold","note":"Low value but small; keep one until sure."},{"name":"HDMI Cable","price":38,"slots":2,"vps":19,"status":"hold","note":"Electronic material; keep a small reserve."},{"name":"Spotlight","price":302,"slots":4,"vps":75.5,"status":"hold","note":"Equipment-like item; keep one."},{"name":"Fan","price":86,"slots":4,"vps":21.5,"status":"hold","note":"Equipment-like item; keep one."},{"name":"Battery 18650","price":7,"slots":1,"vps":7,"status":"hold","note":"Battery/material item; keep a small reserve."},{"name":"Marker","price":24,"slots":1,"vps":24,"status":"hold","note":"Tiny footprint; keeping one is cheap insurance."},{"name":"Polishing Oil","price":138,"slots":2,"vps":69,"status":"hold","note":"Material-like item; keep a small reserve."},{"name":"Old Chemical Bottle","price":68,"slots":2,"vps":34,"status":"hold","note":"Material-like item; keep a small reserve."}];
-const labels = {sell:"Sell",hold:"Keep 1–2",keep:"Priority Keep"};
+const items = [{"name": "Golden Bangle", "price": 16000, "slots": 1, "vps": 16000.0, "status": "sell", "note": "高額なコレクティブル。基本的に売却優先。"}, {"name": "Golden Ring", "price": 12088, "slots": 1, "vps": 12088.0, "status": "sell", "note": "高額なコレクティブル。基本的に売却優先。"}, {"name": "Matryoshka", "price": 10305, "slots": 1, "vps": 10305.0, "status": "sell", "note": "高額な換金向けコレクティブル。"}, {"name": "Cat Figure", "price": 8240, "slots": 2, "vps": 4120.0, "status": "sell", "note": "換金価値が高い。将来のタスク変更が心配なら1個だけ残してもよい。"}, {"name": "Golden Watering Can", "price": 10720, "slots": 4, "vps": 2680.0, "status": "sell", "note": "Golden系の高額換金品。基本的に売却向け。"}, {"name": "Golden Mirror", "price": 6920, "slots": 4, "vps": 1730.0, "status": "sell", "note": "Golden系の高額換金品。基本的に売却向け。"}, {"name": "Antique Plate", "price": 4656, "slots": 4, "vps": 1164.0, "status": "sell", "note": "コレクティブル系。スタッシュを圧迫するなら売却優先。"}, {"name": "Inca Vase", "price": 1608, "slots": 2, "vps": 804.0, "status": "sell", "note": "コレクティブル系。基本的に売却候補。"}, {"name": "Soccer Trophy", "price": 789, "slots": 2, "vps": 394.5, "status": "sell", "note": "コレクティブル系。基本的に売却候補。"}, {"name": "Soviet Figure", "price": 280, "slots": 1, "vps": 280.0, "status": "sell", "note": "コレクティブル系。基本的に売却候補。"}, {"name": "Puzzle Cube", "price": 64, "slots": 1, "vps": 64.0, "status": "sell", "note": "低額のコレクティブル。"}, {"name": "Boardgame", "price": 200, "slots": 4, "vps": 50.0, "status": "sell", "note": "サイズの割に安い。バッグやスタッシュが厳しいときは早めに売却。"}, {"name": "Basketball", "price": 86, "slots": 2, "vps": 43.0, "status": "sell", "note": "サイズの割に安いので売却優先。"}, {"name": "Earth Globe", "price": 74, "slots": 2, "vps": 37.0, "status": "sell", "note": "サイズの割に安いので売却優先。"}, {"name": "Candle Holder", "price": 72, "slots": 4, "vps": 18.0, "status": "sell", "note": "1マスあたりの価値がかなり低いので売却優先。"}, {"name": "Book", "price": 64, "slots": 4, "vps": 16.0, "status": "sell", "note": "1マスあたりの価値がかなり低いので売却優先。"}, {"name": "Soap", "price": 5, "slots": 1, "vps": 5.0, "status": "sell", "note": "低額の雑貨。用途がなければ売却。"}, {"name": "Shampoo", "price": 34, "slots": 2, "vps": 17.0, "status": "sell", "note": "低額の雑貨。用途がなければ売却。"}, {"name": "Shaving Cream", "price": 31, "slots": 1, "vps": 31.0, "status": "sell", "note": "低額の雑貨。用途がなければ売却。"}, {"name": "Bathroom Cleaner", "price": 10, "slots": 2, "vps": 5.0, "status": "sell", "note": "低額の雑貨。用途がなければ売却。"}, {"name": "Fuel", "price": 152, "slots": 4, "vps": 38.0, "status": "keep", "note": "アップグレードで使用する。必要数が揃うまでは優先確保。"}, {"name": "Power Cable", "price": 106, "slots": 4, "vps": 26.5, "status": "keep", "note": "施設アップグレード系の素材。必要数が揃うまで確保。"}, {"name": "Rope", "price": 64, "slots": 4, "vps": 16.0, "status": "keep", "note": "施設アップグレード系の素材。必要数が揃うまで確保。"}, {"name": "Car Battery", "price": 720, "slots": 6, "vps": 120.0, "status": "keep", "note": "施設アップグレード系の素材。必要数が揃うまで確保。"}, {"name": "Graphic Card / GPU", "price": 2025, "slots": 1, "vps": 2025.0, "status": "hold", "note": "小さくて価値も高い。タスクやアップグレード用途を確認するまでは少数保管。"}, {"name": "Hard Drive", "price": 2538, "slots": 2, "vps": 1269.0, "status": "hold", "note": "電子部品。用途確認までは少数保管。"}, {"name": "Military Radio", "price": 1972, "slots": 2, "vps": 986.0, "status": "hold", "note": "通信系アイテム。用途確認までは少数保管。"}, {"name": "Cuban Cigar", "price": 960, "slots": 1, "vps": 960.0, "status": "hold", "note": "換金価値は高めだが、タスク対策として1〜2個残すと安全。"}, {"name": "Generator", "price": 4960, "slots": 6, "vps": 826.67, "status": "hold", "note": "大型だが設備系アイテム。念のため1個残すのが無難。"}, {"name": "DSLR Camera", "price": 740, "slots": 1, "vps": 740.0, "status": "hold", "note": "小型でタスク品になりそうなタイプ。1〜2個保管。"}, {"name": "Compass", "price": 667, "slots": 1, "vps": 667.0, "status": "hold", "note": "小型なので、不要と分かるまでは1〜2個保管。"}, {"name": "Motherboard", "price": 502, "slots": 1, "vps": 502.0, "status": "hold", "note": "電子部品。用途確認までは少数保管。"}, {"name": "Battery PP3", "price": 416, "slots": 1, "vps": 416.0, "status": "hold", "note": "電池・素材系。少数保管。"}, {"name": "Film Case", "price": 346, "slots": 1, "vps": 346.0, "status": "hold", "note": "1マスなので保管コストが低い。1〜2個残しておくと安心。"}, {"name": "Health Injector", "price": 258, "slots": 1, "vps": 258.0, "status": "hold", "note": "消耗品・要求品になる可能性を考えて少数保管。"}, {"name": "Plastic Wire Spool", "price": 777, "slots": 4, "vps": 194.25, "status": "hold", "note": "素材系。1〜2個保管。"}, {"name": "Walkie Talkie", "price": 188, "slots": 1, "vps": 188.0, "status": "hold", "note": "通信系アイテム。用途確認までは少数保管。"}, {"name": "Water Pitcher", "price": 367, "slots": 2, "vps": 183.5, "status": "hold", "note": "用途がはっきりしないため、余裕があれば1個保管。"}, {"name": "Brandy", "price": 344, "slots": 2, "vps": 172.0, "status": "hold", "note": "タスク要求の可能性を考えて1個保管。"}, {"name": "Marlboro Cigarette", "price": 160, "slots": 1, "vps": 160.0, "status": "hold", "note": "タスク要求の可能性を考えて少数保管。"}, {"name": "Cigar", "price": 158, "slots": 1, "vps": 158.0, "status": "hold", "note": "タスク要求の可能性を考えて少数保管。"}, {"name": "Thang Long Cigarette", "price": 144, "slots": 1, "vps": 144.0, "status": "hold", "note": "タスク要求の可能性を考えて少数保管。"}, {"name": "Toolbox", "price": 256, "slots": 2, "vps": 128.0, "status": "hold", "note": "工具・アップグレード系素材。少数保管。"}, {"name": "Painkiller", "price": 120, "slots": 1, "vps": 120.0, "status": "hold", "note": "消耗品。自分が使う分だけ確保。"}, {"name": "Sewing Kit", "price": 120, "slots": 1, "vps": 120.0, "status": "hold", "note": "クラフト・アップグレード系素材。少数保管。"}, {"name": "Nails", "price": 28, "slots": 1, "vps": 28.0, "status": "hold", "note": "建築・アップグレード系素材。少数保管。"}, {"name": "Duct Tape", "price": 16, "slots": 1, "vps": 16.0, "status": "hold", "note": "汎用素材。少数保管。"}, {"name": "WD40", "price": 40, "slots": 1, "vps": 40.0, "status": "hold", "note": "工具・素材系。少数保管。"}, {"name": "Saw", "price": 160, "slots": 2, "vps": 80.0, "status": "hold", "note": "工具系。1個程度保管。"}, {"name": "Bolt Cutter", "price": 160, "slots": 2, "vps": 80.0, "status": "hold", "note": "工具系。1個程度保管。"}, {"name": "Clamp", "price": 50, "slots": 1, "vps": 50.0, "status": "hold", "note": "工具系。少数保管。"}, {"name": "Hammer", "price": 18, "slots": 2, "vps": 9.0, "status": "hold", "note": "工具系。1個程度保管。"}, {"name": "Nylon", "price": 16, "slots": 2, "vps": 8.0, "status": "hold", "note": "素材系。少数保管。"}, {"name": "Polyester Fabric", "price": 96, "slots": 2, "vps": 48.0, "status": "hold", "note": "素材系。少数保管。"}, {"name": "Paintbrush", "price": 64, "slots": 1, "vps": 64.0, "status": "hold", "note": "工具・素材系。1個程度保管。"}, {"name": "Spraycan", "price": 20, "slots": 1, "vps": 20.0, "status": "hold", "note": "素材系。少数保管。"}, {"name": "Old Communicator", "price": 283, "slots": 4, "vps": 70.75, "status": "hold", "note": "通信系。1個程度保管。"}, {"name": "Old Radio", "price": 75, "slots": 4, "vps": 18.75, "status": "hold", "note": "通信系。1個程度保管。"}, {"name": "Field Radio", "price": 76, "slots": 2, "vps": 38.0, "status": "hold", "note": "通信系。1個程度保管。"}, {"name": "Old Flashlight", "price": 18, "slots": 1, "vps": 18.0, "status": "hold", "note": "低額だが小型。不要と分かるまでは1個程度保管。"}, {"name": "HDMI Cable", "price": 38, "slots": 2, "vps": 19.0, "status": "hold", "note": "電子系素材。少数保管。"}, {"name": "Spotlight", "price": 302, "slots": 4, "vps": 75.5, "status": "hold", "note": "設備系。1個程度保管。"}, {"name": "Fan", "price": 86, "slots": 4, "vps": 21.5, "status": "hold", "note": "設備系。1個程度保管。"}, {"name": "Battery 18650", "price": 7, "slots": 1, "vps": 7.0, "status": "hold", "note": "電池・素材系。少数保管。"}, {"name": "Marker", "price": 24, "slots": 1, "vps": 24.0, "status": "hold", "note": "1マスなので、念のため1個残しても負担が少ない。"}, {"name": "Polishing Oil", "price": 138, "slots": 2, "vps": 69.0, "status": "hold", "note": "素材系。少数保管。"}, {"name": "Old Chemical Bottle", "price": 68, "slots": 2, "vps": 34.0, "status": "hold", "note": "素材系。少数保管。"}];
+const labels = {sell:"売ってOK",hold:"1〜2個残す",keep:"優先確保"};
 let currentFilter = "all";
 let sortByValue = false;
 
