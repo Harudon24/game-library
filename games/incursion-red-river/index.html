@@ -7,101 +7,24 @@
   <title>Incursion: Red River | Game Library</title>
   <link rel="stylesheet" href="../../assets/css/common.css">
   <style>
-    .need-panel{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#070707;
-      padding:18px;
-    }
-    .need-form{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 120px auto;
-      gap:9px;
-    }
-    .need-input{
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:10px;
-      background:#030303;
-      color:#fff;
-      padding:11px 12px;
-      font:inherit;
-    }
+    .need-panel{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .need-form{display:grid;grid-template-columns:minmax(0,1fr) 120px auto;gap:9px}
+    .need-input{width:100%;border:1px solid var(--line);border-radius:10px;background:#030303;color:#fff;padding:11px 12px;font:inherit}
     .need-input:focus{outline:none;border-color:#555}
-    .need-button{
-      border:1px solid var(--line);
-      border-radius:10px;
-      background:#111;
-      color:#eee;
-      padding:10px 13px;
-      font:inherit;
-      font-size:13px;
-      font-weight:800;
-      cursor:pointer;
-    }
+    .need-button{border:1px solid var(--line);border-radius:10px;background:#111;color:#eee;padding:10px 13px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
     .need-button:hover{border-color:#555;background:#161616}
-    .need-list{
-      display:grid;
-      gap:9px;
-      margin-top:14px;
-    }
-    .need-empty{
-      padding:18px 4px 3px;
-      color:#6f6f6f;
-      font-size:13px;
-    }
-    .need-row{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto auto;
-      align-items:center;
-      gap:12px;
-      padding:13px 14px;
-      border:1px solid #202020;
-      border-radius:13px;
-      background:#0b0b0b;
-    }
-    .need-name{
-      min-width:0;
-      font-weight:800;
-      overflow-wrap:anywhere;
-    }
-    .need-count{
-      color:#cfcfcf;
-      white-space:nowrap;
-      font-variant-numeric:tabular-nums;
-    }
-    .need-count b{
-      color:#fff;
-      font-size:19px;
-      margin:0 3px;
-    }
-    .need-actions{
-      display:flex;
-      gap:6px;
-    }
-    .need-actions button{
-      min-width:34px;
-      height:34px;
-      border:1px solid #2a2a2a;
-      border-radius:8px;
-      background:#111;
-      color:#ddd;
-      cursor:pointer;
-      font-weight:800;
-    }
+    .need-list{display:grid;gap:9px;margin-top:14px}
+    .need-empty{padding:18px 4px 3px;color:#6f6f6f;font-size:13px}
+    .need-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:13px 14px;border:1px solid #202020;border-radius:13px;background:#0b0b0b}
+    .need-name{min-width:0;font-weight:800;overflow-wrap:anywhere}
+    .need-count{color:#cfcfcf;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .need-count b{color:#fff;font-size:19px;margin:0 3px}
+    .need-actions{display:flex;gap:6px}
+    .need-actions button{min-width:34px;height:34px;border:1px solid #2a2a2a;border-radius:8px;background:#111;color:#ddd;cursor:pointer;font-weight:800}
     .need-actions button:hover{border-color:#555;background:#181818}
     .need-actions .delete{color:#ff9a9a}
-    .need-help{
-      margin-top:10px;
-      color:#707070;
-      font-size:11px;
-    }
-    @media(max-width:650px){
-      .need-form{grid-template-columns:1fr 92px}
-      .need-form .need-button{grid-column:1/-1}
-      .need-row{grid-template-columns:1fr auto}
-      .need-actions{grid-column:1/-1;justify-content:flex-end}
-    }
+    .need-help{margin-top:10px;color:#707070;font-size:11px}
+    @media(max-width:650px){.need-form{grid-template-columns:1fr 92px}.need-form .need-button{grid-column:1/-1}.need-row{grid-template-columns:1fr auto}.need-actions{grid-column:1/-1;justify-content:flex-end}}
   </style>
 </head>
 <body>
@@ -116,47 +39,36 @@
     </nav>
   </header>
 
-  <div class="breadcrumbs">
-    <a href="../../">ゲームライブラリ</a>
-    <span>/</span>
-    <span>Incursion: Red River</span>
-  </div>
-
+  <div class="breadcrumbs"><a href="../../">ゲームライブラリ</a><span>/</span><span>Incursion: Red River</span></div>
   <a class="back-link" href="../../">← TOPへ戻る</a>
 
   <section class="hero">
     <div class="eyebrow">ゲーム · 2026</div>
     <h1>Incursion:<br>Red River</h1>
-    <p>
-      ルート品、アップグレード、クエストなど、プレイ中に見返したい情報をまとめています。
-    </p>
-    <div class="meta">
-      <span class="pill"><span class="status-dot"></span>プレイ中</span>
-      <span class="pill">1ガイド</span>
-    </div>
+    <p>ルート品、アップグレード、クエストなど、プレイ中に見返したい情報をまとめています。</p>
+    <div class="meta"><span class="pill"><span class="status-dot"></span>プレイ中</span><span class="pill">3ガイド</span></div>
   </section>
 
   <section class="section" id="guides">
-    <div class="section-head">
-      <h2 class="section-title">ガイド</h2>
-      <div class="section-note">プレイ中に見返す資料</div>
-    </div>
+    <div class="section-head"><h2 class="section-title">ガイド</h2><div class="section-note">プレイ中に見返す資料・ツール</div></div>
     <div class="grid">
       <a class="card" href="barter-items.html">
-        <div class="arrow">→</div>
-        <small>ルート品</small>
-        <h3>換金・素材アイテム</h3>
+        <div class="arrow">→</div><small>ルート品</small><h3>換金・素材アイテム</h3>
         <p>「売る / 残す」をすぐ判断できる実用表。検索、絞り込み、1マスあたりの価値にも対応。</p>
+      </a>
+      <a class="card" href="ammunition.html">
+        <div class="arrow">→</div><small>弾薬</small><h3>弾薬比較</h3>
+        <p>口径ごとに Damage / Piercing Level / Penetration を一覧化。対防具向けの順でも確認できます。</p>
+      </a>
+      <a class="card" href="attachment-builder.html">
+        <div class="arrow">→</div><small>武器カスタム</small><h3>アタッチメント検索</h3>
+        <p>武器を選んで装着可能な候補を検索。レールやマウントが必要なら取り付け順まで表示します。</p>
       </a>
     </div>
   </section>
 
   <section class="section" id="requirements">
-    <div class="section-head">
-      <h2 class="section-title">必要数メモ</h2>
-      <div class="section-note">あと何個必要かを一時保存</div>
-    </div>
-
+    <div class="section-head"><h2 class="section-title">必要数メモ</h2><div class="section-note">あと何個必要かを一時保存</div></div>
     <div class="need-panel">
       <form class="need-form" id="needForm">
         <input class="need-input" id="needName" type="text" placeholder="例: Fuel" autocomplete="off" required>
@@ -169,111 +81,39 @@
   </section>
 
   <section class="section" id="notes">
-    <div class="section-head">
-      <h2 class="section-title">メモ</h2>
-      <div class="section-note">すぐ見返したいこと</div>
-    </div>
-
-    <div class="quick-note">
-      <strong>地形にスタックしたとき</strong>
-      <span>ESC → REDEPLOY CHARACTER でレイドを終了せず、最初の出撃地点へ戻れる。</span>
-    </div>
-    <div class="quick-note">
-      <strong>Fuel</strong>
-      <span>アップグレードで使用するため確保。普通の換金アイテムとして売らない。</span>
-    </div>
+    <div class="section-head"><h2 class="section-title">メモ</h2><div class="section-note">すぐ見返したいこと</div></div>
+    <div class="quick-note"><strong>地形にスタックしたとき</strong><span>ESC → REDEPLOY CHARACTER でレイドを終了せず、最初の出撃地点へ戻れる。</span></div>
+    <div class="quick-note"><strong>Fuel</strong><span>アップグレードで使用するため確保。普通の換金アイテムとして売らない。</span></div>
   </section>
 
-  <footer class="footer">
-    <a class="back-link" href="../../">← ゲームライブラリに戻る</a><br>
-    Incursion: Red River
-  </footer>
+  <footer class="footer"><a class="back-link" href="../../">← ゲームライブラリに戻る</a><br>Incursion: Red River</footer>
 </main>
 
 <script>
-const NEED_KEY = 'irr-required-items-v1';
-
-function loadNeeds(){
-  try{
-    const data = JSON.parse(localStorage.getItem(NEED_KEY) || '[]');
-    return Array.isArray(data) ? data : [];
-  }catch{
-    return [];
-  }
-}
-
-function saveNeeds(items){
-  localStorage.setItem(NEED_KEY, JSON.stringify(items));
-}
-
-function escapeHtml(text){
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
+const NEED_KEY='irr-required-items-v1';
+function loadNeeds(){try{const d=JSON.parse(localStorage.getItem(NEED_KEY)||'[]');return Array.isArray(d)?d:[]}catch{return []}}
+function saveNeeds(items){localStorage.setItem(NEED_KEY,JSON.stringify(items))}
+function escapeHtml(text){const div=document.createElement('div');div.textContent=text;return div.innerHTML}
 function renderNeeds(){
-  const list = document.getElementById('needList');
-  const items = loadNeeds();
-
-  if(items.length === 0){
-    list.innerHTML = '<div class="need-empty">まだ必要数メモはありません。</div>';
-    return;
-  }
-
-  list.innerHTML = items.map((item, index) => `
-    <div class="need-row">
-      <div class="need-name">${escapeHtml(item.name)}</div>
-      <div class="need-count">あと <b>${item.count}</b> 個</div>
-      <div class="need-actions">
-        <button type="button" data-action="minus" data-index="${index}" title="1個減らす">−</button>
-        <button type="button" data-action="plus" data-index="${index}" title="1個増やす">＋</button>
-        <button type="button" class="delete" data-action="delete" data-index="${index}" title="削除">削除</button>
-      </div>
-    </div>
-  `).join('');
+  const list=document.getElementById('needList'),items=loadNeeds();
+  if(items.length===0){list.innerHTML='<div class="need-empty">まだ必要数メモはありません。</div>';return}
+  list.innerHTML=items.map((item,index)=>`<div class="need-row"><div class="need-name">${escapeHtml(item.name)}</div><div class="need-count">あと <b>${item.count}</b> 個</div><div class="need-actions"><button type="button" data-action="minus" data-index="${index}" title="1個減らす">−</button><button type="button" data-action="plus" data-index="${index}" title="1個増やす">＋</button><button type="button" class="delete" data-action="delete" data-index="${index}" title="削除">削除</button></div></div>`).join('');
 }
-
-document.getElementById('needForm').addEventListener('submit', event => {
-  event.preventDefault();
-  const nameInput = document.getElementById('needName');
-  const countInput = document.getElementById('needCount');
-  const name = nameInput.value.trim();
-  const count = Math.max(0, parseInt(countInput.value, 10) || 0);
-  if(!name) return;
-
-  const items = loadNeeds();
-  const existing = items.find(item => item.name.toLowerCase() === name.toLowerCase());
-  if(existing){
-    existing.count = count;
-    existing.name = name;
-  }else{
-    items.push({name, count});
-  }
-  saveNeeds(items);
-  nameInput.value = '';
-  countInput.value = '1';
-  nameInput.focus();
-  renderNeeds();
+document.getElementById('needForm').addEventListener('submit',event=>{
+  event.preventDefault();const nameInput=document.getElementById('needName'),countInput=document.getElementById('needCount');
+  const name=nameInput.value.trim(),count=Math.max(0,parseInt(countInput.value,10)||0);if(!name)return;
+  const items=loadNeeds(),existing=items.find(item=>item.name.toLowerCase()===name.toLowerCase());
+  if(existing){existing.count=count;existing.name=name}else items.push({name,count});
+  saveNeeds(items);nameInput.value='';countInput.value='1';nameInput.focus();renderNeeds();
 });
-
-document.getElementById('needList').addEventListener('click', event => {
-  const button = event.target.closest('button[data-action]');
-  if(!button) return;
-
-  const index = Number(button.dataset.index);
-  const action = button.dataset.action;
-  const items = loadNeeds();
-  if(!items[index]) return;
-
-  if(action === 'minus') items[index].count = Math.max(0, items[index].count - 1);
-  if(action === 'plus') items[index].count += 1;
-  if(action === 'delete') items.splice(index, 1);
-
-  saveNeeds(items);
-  renderNeeds();
+document.getElementById('needList').addEventListener('click',event=>{
+  const button=event.target.closest('button[data-action]');if(!button)return;
+  const index=Number(button.dataset.index),action=button.dataset.action,items=loadNeeds();if(!items[index])return;
+  if(action==='minus')items[index].count=Math.max(0,items[index].count-1);
+  if(action==='plus')items[index].count+=1;
+  if(action==='delete')items.splice(index,1);
+  saveNeeds(items);renderNeeds();
 });
-
 renderNeeds();
 </script>
 </body>
