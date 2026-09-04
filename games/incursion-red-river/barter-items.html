@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Incursion: Red River practical barter item sell/keep reference.">
+  <title>Barter Items | Incursion: Red River</title>
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <style>
+    .guide-title{margin:0;font-size:clamp(34px,6vw,60px);letter-spacing:-.045em;line-height:1}
+    .guide-intro{max-width:760px;margin:14px 0 0;color:#aaa;font-size:14px}
+    .controls{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 13px}
+    .search{min-width:260px;flex:1;background:#050505;color:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font:inherit}
+    button{border:1px solid var(--line);background:#080808;color:#bdbdbd;border-radius:11px;padding:10px 12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+    button.active{border-color:#555;background:#131313;color:#fff}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px}
+    .legend-item{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#aaa;font-size:11px;font-weight:800}
+    .dot{width:7px;height:7px;border-radius:50%}
+    .dot.sell{background:var(--good)} .dot.hold{background:var(--warn)} .dot.keep{background:var(--danger)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#050505}
+    table{width:100%;border-collapse:collapse;min-width:960px}
+    th,td{padding:12px 13px;border-bottom:1px solid #191919;text-align:left;vertical-align:top}
+    th{position:sticky;top:0;z-index:2;background:#0b0b0b;color:#888;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+    tr:last-child td{border-bottom:0}
+    tr:hover td{background:#090909}
+    .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .status{display:inline-block;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900;white-space:nowrap}
+    .status.sell{color:var(--good);border:1px solid #284731;background:#07120a}
+    .status.hold{color:var(--warn);border:1px solid #56451e;background:#151105}
+    .status.keep{color:var(--danger);border:1px solid #562727;background:#160707}
+    .note{min-width:330px;color:#a5a5a5;font-size:12px}
+    .check{width:17px;height:17px;accent-color:white}
+    .warning{margin:18px 0;border:1px solid var(--line);border-radius:14px;background:#070707;padding:13px 15px;color:#9d9d9d;font-size:12px}
+    @media(max-width:700px){.controls{display:grid;grid-template-columns:1fr 1fr}.search{grid-column:1/-1;min-width:0}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../">GAME LIBRARY</a>
+    <nav class="topnav" aria-label="Page navigation">
+      <a href="./">Incursion: Red River</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs">
+    <a href="../../">Game Library</a><span>/</span>
+    <a href="./">Incursion: Red River</a><span>/</span>
+    <span>Barter Items</span>
+  </div>
+
+  <a class="back-link" href="./">← Back to Incursion: Red River</a>
+  <div class="eyebrow">Loot Reference</div>
+  <h1 class="guide-title">Barter Items</h1>
+  <p class="guide-intro">
+    A practical reference for deciding what to sell and what to keep.
+    Search by item name, filter by recommendation, or sort by value per slot.
+  </p>
+
+  <div class="warning">
+    This is a practical personal reference, not a permanent source of truth.
+    Task and upgrade requirements can change with game updates. “Keep 1–2” means
+    the item is cheap insurance until its current use is confirmed.
+  </div>
+
+  <div class="controls">
+    <input id="search" class="search" type="search" placeholder="Search items…">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="sell">Sell</button>
+    <button data-filter="hold">Keep 1–2</button>
+    <button data-filter="keep">Priority Keep</button>
+    <button id="sortValue">Value / Slot</button>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="dot sell"></span>Sell</span>
+    <span class="legend-item"><span class="dot hold"></span>Keep 1–2</span>
+    <span class="legend-item"><span class="dot keep"></span>Priority Keep</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Stored</th>
+          <th>Item</th>
+          <th>Recommendation</th>
+          <th class="num">Sell Value</th>
+          <th class="num">Slots</th>
+          <th class="num">Value / Slot</th>
+          <th>Reason / Note</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    Last updated: 2026-09-04 · Incursion: Red River
+  </footer>
+</main>
+
+<script>
+const items = [{"name":"Golden Bangle","price":16000,"slots":1,"vps":16000,"status":"sell","note":"High-value collectible; sell-first item."},{"name":"Golden Ring","price":12088,"slots":1,"vps":12088,"status":"sell","note":"High-value collectible; sell-first item."},{"name":"Matryoshka","price":10305,"slots":1,"vps":10305,"status":"sell","note":"High-value barter collectible."},{"name":"Cat Figure","price":8240,"slots":2,"vps":4120,"status":"sell","note":"Good cash item. Keep one only if you prefer to hedge against future task changes."},{"name":"Golden Watering Can","price":10720,"slots":4,"vps":2680,"status":"sell","note":"Golden collectible; mainly valuable for cash."},{"name":"Golden Mirror","price":6920,"slots":4,"vps":1730,"status":"sell","note":"Golden collectible; mainly valuable for cash."},{"name":"Antique Plate","price":4656,"slots":4,"vps":1164,"status":"sell","note":"Collectible-style loot; sell when space matters."},{"name":"Inca Vase","price":1608,"slots":2,"vps":804,"status":"sell","note":"Collectible-style loot."},{"name":"Soccer Trophy","price":789,"slots":2,"vps":394.5,"status":"sell","note":"Collectible-style loot."},{"name":"Soviet Figure","price":280,"slots":1,"vps":280,"status":"sell","note":"Collectible-style loot."},{"name":"Puzzle Cube","price":64,"slots":1,"vps":64,"status":"sell","note":"Low-value collectible."},{"name":"Boardgame","price":200,"slots":4,"vps":50,"status":"sell","note":"Low value for its size; sell early when inventory is tight."},{"name":"Basketball","price":86,"slots":2,"vps":43,"status":"sell","note":"Low value for its size."},{"name":"Earth Globe","price":74,"slots":2,"vps":37,"status":"sell","note":"Low value for its size."},{"name":"Candle Holder","price":72,"slots":4,"vps":18,"status":"sell","note":"Very poor value per slot."},{"name":"Book","price":64,"slots":4,"vps":16,"status":"sell","note":"Very poor value per slot."},{"name":"Soap","price":5,"slots":1,"vps":5,"status":"sell","note":"Low-value misc loot."},{"name":"Shampoo","price":34,"slots":2,"vps":17,"status":"sell","note":"Low-value misc loot."},{"name":"Shaving Cream","price":31,"slots":1,"vps":31,"status":"sell","note":"Low-value misc loot."},{"name":"Bathroom Cleaner","price":10,"slots":2,"vps":5,"status":"sell","note":"Low-value misc loot."},{"name":"Fuel","price":152,"slots":4,"vps":38,"status":"keep","note":"Used for upgrades. Prioritize keeping the amount you still need."},{"name":"Power Cable","price":106,"slots":4,"vps":26.5,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Rope","price":64,"slots":4,"vps":16,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Car Battery","price":720,"slots":6,"vps":120,"status":"keep","note":"Upgrade-related material; keep until requirements are covered."},{"name":"Graphic Card / GPU","price":2025,"slots":1,"vps":2025,"status":"hold","note":"Compact and valuable; keep a small reserve until task/upgrade needs are confirmed."},{"name":"Hard Drive","price":2538,"slots":2,"vps":1269,"status":"hold","note":"Electronic component; keep a small reserve."},{"name":"Military Radio","price":1972,"slots":2,"vps":986,"status":"hold","note":"Communication item; keep a small reserve."},{"name":"Cuban Cigar","price":960,"slots":1,"vps":960,"status":"hold","note":"Good value, but keeping 1–2 is a safe task hedge."},{"name":"Generator","price":4960,"slots":6,"vps":826.67,"status":"hold","note":"Large but equipment-like; keeping one is a reasonable hedge."},{"name":"DSLR Camera","price":740,"slots":1,"vps":740,"status":"hold","note":"Compact task-like item; keep 1–2."},{"name":"Compass","price":667,"slots":1,"vps":667,"status":"hold","note":"Compact; keep 1–2 until no longer needed."},{"name":"Motherboard","price":502,"slots":1,"vps":502,"status":"hold","note":"Electronic component; keep a small reserve."},{"name":"Battery PP3","price":416,"slots":1,"vps":416,"status":"hold","note":"Battery/material item; keep a small reserve."},{"name":"Film Case","price":346,"slots":1,"vps":346,"status":"hold","note":"Tiny footprint; keeping 1–2 is cheap insurance."},{"name":"Health Injector","price":258,"slots":1,"vps":258,"status":"hold","note":"Useful/consumable-looking item; retain a small reserve."},{"name":"Plastic Wire Spool","price":777,"slots":4,"vps":194.25,"status":"hold","note":"Material-like item; keep 1–2."},{"name":"Walkie Talkie","price":188,"slots":1,"vps":188,"status":"hold","note":"Communication item; keep a small reserve."},{"name":"Water Pitcher","price":367,"slots":2,"vps":183.5,"status":"hold","note":"Unclear utility; keep one if storage allows."},{"name":"Brandy","price":344,"slots":2,"vps":172,"status":"hold","note":"Possible task-style item; keep one."},{"name":"Marlboro Cigarette","price":160,"slots":1,"vps":160,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Cigar","price":158,"slots":1,"vps":158,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Thang Long Cigarette","price":144,"slots":1,"vps":144,"status":"hold","note":"Possible task-style item; keep a small reserve."},{"name":"Toolbox","price":256,"slots":2,"vps":128,"status":"hold","note":"Tool/upgrade-style material; keep a small reserve."},{"name":"Painkiller","price":120,"slots":1,"vps":120,"status":"hold","note":"Consumable; keep what you actually use."},{"name":"Sewing Kit","price":120,"slots":1,"vps":120,"status":"hold","note":"Craft/upgrade-style material; keep a small reserve."},{"name":"Nails","price":28,"slots":1,"vps":28,"status":"hold","note":"Construction-style material; keep a small reserve."},{"name":"Duct Tape","price":16,"slots":1,"vps":16,"status":"hold","note":"General-purpose material; keep a small reserve."},{"name":"WD40","price":40,"slots":1,"vps":40,"status":"hold","note":"Tool/material item; keep a small reserve."},{"name":"Saw","price":160,"slots":2,"vps":80,"status":"hold","note":"Tool item; keep one."},{"name":"Bolt Cutter","price":160,"slots":2,"vps":80,"status":"hold","note":"Tool item; keep one."},{"name":"Clamp","price":50,"slots":1,"vps":50,"status":"hold","note":"Tool item; keep a small reserve."},{"name":"Hammer","price":18,"slots":2,"vps":9,"status":"hold","note":"Tool item; keep one."},{"name":"Nylon","price":16,"slots":2,"vps":8,"status":"hold","note":"Material; keep a small reserve."},{"name":"Polyester Fabric","price":96,"slots":2,"vps":48,"status":"hold","note":"Material; keep a small reserve."},{"name":"Paintbrush","price":64,"slots":1,"vps":64,"status":"hold","note":"Tool/material item; keep one."},{"name":"Spraycan","price":20,"slots":1,"vps":20,"status":"hold","note":"Material-like item; keep a small reserve."},{"name":"Old Communicator","price":283,"slots":4,"vps":70.75,"status":"hold","note":"Communication item; keep one."},{"name":"Old Radio","price":75,"slots":4,"vps":18.75,"status":"hold","note":"Communication item; keep one."},{"name":"Field Radio","price":76,"slots":2,"vps":38,"status":"hold","note":"Communication item; keep one."},{"name":"Old Flashlight","price":18,"slots":1,"vps":18,"status":"hold","note":"Low value but small; keep one until sure."},{"name":"HDMI Cable","price":38,"slots":2,"vps":19,"status":"hold","note":"Electronic material; keep a small reserve."},{"name":"Spotlight","price":302,"slots":4,"vps":75.5,"status":"hold","note":"Equipment-like item; keep one."},{"name":"Fan","price":86,"slots":4,"vps":21.5,"status":"hold","note":"Equipment-like item; keep one."},{"name":"Battery 18650","price":7,"slots":1,"vps":7,"status":"hold","note":"Battery/material item; keep a small reserve."},{"name":"Marker","price":24,"slots":1,"vps":24,"status":"hold","note":"Tiny footprint; keeping one is cheap insurance."},{"name":"Polishing Oil","price":138,"slots":2,"vps":69,"status":"hold","note":"Material-like item; keep a small reserve."},{"name":"Old Chemical Bottle","price":68,"slots":2,"vps":34,"status":"hold","note":"Material-like item; keep a small reserve."}];
+const labels = {sell:"Sell",hold:"Keep 1–2",keep:"Priority Keep"};
+let currentFilter = "all";
+let sortByValue = false;
+
+function loadStored(){
+  try{return new Set(JSON.parse(localStorage.getItem("irr-barter-stored") || "[]"));}
+  catch{return new Set();}
+}
+function saveStored(set){
+  localStorage.setItem("irr-barter-stored",JSON.stringify([...set]));
+}
+function render(){
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  let list = items.filter(item =>
+    (currentFilter === "all" || item.status === currentFilter) &&
+    (!query || item.name.toLowerCase().includes(query) || item.note.toLowerCase().includes(query))
+  );
+  if(sortByValue) list.sort((a,b)=>b.vps-a.vps);
+
+  const stored = loadStored();
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+  for(const item of list){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><input type="checkbox" class="check stored" data-name="${item.name}" ${stored.has(item.name) ? "checked" : ""}></td>
+      <td><strong>${item.name}</strong></td>
+      <td><span class="status ${item.status}">${labels[item.status]}</span></td>
+      <td class="num">$${item.price.toLocaleString()}</td>
+      <td class="num">${item.slots}</td>
+      <td class="num">$${Math.round(item.vps).toLocaleString()}</td>
+      <td class="note">${item.note}</td>`;
+    tbody.appendChild(tr);
+  }
+  document.querySelectorAll(".stored").forEach(box => {
+    box.addEventListener("change", event => {
+      const set = loadStored();
+      if(event.target.checked) set.add(event.target.dataset.name);
+      else set.delete(event.target.dataset.name);
+      saveStored(set);
+    });
+  });
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.querySelectorAll("[data-filter]").forEach(button => {
+  button.addEventListener("click",()=>{
+    currentFilter = button.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));
+    button.classList.add("active");
+    render();
+  });
+});
+document.getElementById("sortValue").addEventListener("click",event=>{
+  sortByValue = !sortByValue;
+  event.currentTarget.classList.toggle("active",sortByValue);
+  render();
+});
+render();
+</script>
+</body>
+</html>
