@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ARK: Survival Ascended / Astraeos の素材集め、進行、MOD、菜園などの個人用メモ。">
+  <title>ARK: Survival Ascended | Game Library</title>
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <style>
+    .overview-grid,.level-grid,.mod-grid,.spot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .info-card{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .info-card h3{margin:0 0 7px;font-size:17px;letter-spacing:-.02em}
+    .info-card p{margin:0;color:#a5a5a5;font-size:13px}
+    .info-card p+p{margin-top:8px}
+    .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+    .tag{display:inline-flex;align-items:center;border:1px solid #2a2a2a;border-radius:999px;background:#0b0b0b;color:#adadad;padding:5px 8px;font-size:11px;font-weight:800}
+    .tag.good{color:var(--good)}
+    .tag.warn{color:var(--warn)}
+    .level-card{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#0d0d0d,#070707);padding:19px}
+    .level-card .level{color:#f0f0f0;font-size:22px;font-weight:900;letter-spacing:-.03em}
+    .level-card .sub{margin-top:2px;color:#777;font-size:11px;font-weight:800;letter-spacing:.08em}
+    .level-card ul{margin:12px 0 0;padding-left:19px;color:#aaa;font-size:13px}
+    .level-card li+li{margin-top:5px}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:#050505}
+    .resource-table{width:100%;min-width:1020px;border-collapse:collapse;font-size:12px}
+    .resource-table th,.resource-table td{padding:13px 14px;text-align:left;vertical-align:top;border-bottom:1px solid #1e1e1e;border-right:1px solid #171717}
+    .resource-table th:last-child,.resource-table td:last-child{border-right:0}
+    .resource-table tr:last-child td{border-bottom:0}
+    .resource-table th{position:sticky;top:0;background:#101010;color:#888;font-size:10px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+    .resource-table td:first-child{color:#f1f1f1;font-weight:900;font-size:13px;white-space:nowrap}
+    .resource-table strong{color:#e7e7e7}
+    .muted{color:#777}
+    .best{color:var(--good);font-weight:850}
+    .caution{color:var(--warn);font-weight:800}
+    .spot-card{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .spot-card .spot-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+    .spot-card h3{margin:0;font-size:17px}
+    .spot-card .coord{border:1px solid #292929;border-radius:999px;padding:4px 8px;color:#aaa;font-size:10px;font-weight:850;white-space:nowrap}
+    .spot-card p{margin:0;color:#a5a5a5;font-size:13px}
+    .spot-card p+p{margin-top:8px}
+    .flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}
+    .flow span{border:1px solid #292929;border-radius:9px;background:#0b0b0b;padding:6px 9px;color:#b7b7b7;font-size:11px;font-weight:800}
+    .flow i{font-style:normal;color:#555}
+    .notice{padding:16px 18px;border:1px solid #303030;border-radius:16px;background:#0a0a0a;color:#adadad;font-size:13px}
+    .notice strong{color:#ededed}
+    .notice.warn{border-color:#403822;color:#c3b589}
+    .mod-card{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .mod-card h3{margin:0;font-size:17px}
+    .mod-status{display:inline-block;margin-top:5px;color:#777;font-size:11px;font-weight:800}
+    .mod-card ul{margin:12px 0 0;padding-left:18px;color:#a7a7a7;font-size:13px}
+    .mod-card li+li{margin-top:5px}
+    code{border:1px solid #262626;border-radius:7px;background:#020202;color:#dedede;padding:2px 6px;font-family:"Cascadia Code",Consolas,monospace;font-size:.92em}
+    .source-list{display:grid;gap:8px}
+    .source-list a{display:block;border:1px solid #202020;border-radius:12px;padding:10px 12px;background:#070707;color:#999;text-decoration:none;font-size:12px}
+    .source-list a:hover{border-color:#444;color:#ddd}
+    @media(max-width:760px){.overview-grid,.level-grid,.mod-grid,.spot-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="../../">ゲームライブラリ</a>
+    <nav class="topnav" aria-label="ゲーム内ナビゲーション">
+      <a href="../../">← TOPへ戻る</a>
+      <a href="#resources">素材集め</a>
+      <a href="#astraeos">Astraeos</a>
+      <a href="#mods">MOD</a>
+      <a href="#farming">菜園</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs"><a href="../../">ゲームライブラリ</a><span>/</span><span>ARK: Survival Ascended</span></div>
+  <a class="back-link" href="../../">← TOPへ戻る</a>
+
+  <section class="hero">
+    <div class="eyebrow">ARK · ASA · Astraeos</div>
+    <h1>ARK: Survival<br>Ascended</h1>
+    <p>Astraeosでプレイ中に見返したい、素材集め・恐竜・MOD・菜園などの実用情報をひとまとめにしたページ。</p>
+    <div class="meta">
+      <span class="pill"><span class="status-dot"></span>プレイ中</span>
+      <span class="pill">Astraeos</span>
+      <span class="pill">ローカル / ソロ</span>
+      <span class="pill">拠点: コリンソス東</span>
+    </div>
+  </section>
+
+  <section class="section" id="current">
+    <div class="section-head"><h2 class="section-title">現在の状況</h2><div class="section-note">今の進行に合わせたメモ</div></div>
+    <div class="overview-grid">
+      <div class="info-card">
+        <h3>木材担当はマンモス</h3>
+        <p>マンモスは捕獲済み。木材の重量を75%軽減し、木材とわらを大量に集められるので当面の主力。</p>
+        <div class="tag-row"><span class="tag good">主力</span><span class="tag">サドル Lv31</span><span class="tag">木材 -75%</span></div>
+      </div>
+      <div class="info-card">
+        <h3>コリンソス東を序盤拠点に継続</h3>
+        <p>比較的安全で、海岸・金属・水晶などへアクセスしやすい。序盤から中盤までそのままメイン拠点として使いやすい。</p>
+        <div class="tag-row"><span class="tag">海岸資源</span><span class="tag">金属</span><span class="tag">水晶</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="resources">
+    <div class="section-head"><h2 class="section-title">素材集めロードマップ</h2><div class="section-note">レベル帯ごとのおすすめ</div></div>
+    <div class="level-grid">
+      <div class="level-card">
+        <div class="level">Lv1–19</div><div class="sub">手作業 → 最初の採取恐竜</div>
+        <ul>
+          <li>石の斧 / 石のピッケルを素材によって使い分ける。</li>
+          <li>モスコプスはサドル不要。繊維・ベリーなどの序盤万能枠。</li>
+          <li>パラサウロロフスはLv9、トリケラトプスはLv16から騎乗可能。ベリー集めを楽にする。</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level">Lv20–35</div><div class="sub">金属ツール + 専門恐竜が始まる</div>
+        <ul>
+          <li>Lv20で金属のピッケル。手掘りの金属・水晶・黒曜石が大きく改善。</li>
+          <li>ステゴサウルス Lv26、金属の鎌 Lv30。</li>
+          <li><strong>マンモス Lv31</strong>で木材が一気に楽になる。</li>
+          <li><strong>ドエディクルス Lv34</strong>で石集めを専門化。</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level">Lv36–60</div><div class="sub">鉱石と洞窟素材を効率化</div>
+        <ul>
+          <li><strong>アンキロサウルス Lv36</strong>で金属・火打石・水晶・黒曜石をまとめて担当。</li>
+          <li>メガテリウム Lv52で虫狩り。洞窟のキチン集めが大幅に楽になる。</li>
+          <li>この帯ではマンモス・ドエディ・アンキロの3匹が素材集めの中心。</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level">Lv61+</div><div class="sub">大量採取 + 運搬を完成</div>
+        <ul>
+          <li>カストロイデス Lv61：木材採取 + 木材/石/わら/繊維の重量50%軽減。</li>
+          <li>アルゲンタヴィス Lv62：採取恐竜を運び、遠征効率を大きく改善。</li>
+          <li>ブロントサウルス Lv63：ベリー・わらを大量採取。</li>
+          <li>テリジノサウルス Lv69：木材・繊維・キチンなどの高効率な万能採取。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top:12px"><strong>レベル表記は主にサドル解放レベル。</strong> テイム自体はそれ以前でも可能。モスコプスはサドル不要なので、序盤からそのまま使える。</div>
+
+    <div class="section-head" style="margin-top:28px"><h2 class="section-title">素材別おすすめ一覧</h2><div class="section-note">恐竜だけでなく道具・場所も併記</div></div>
+    <div class="table-wrap">
+      <table class="resource-table">
+        <thead>
+          <tr><th>素材</th><th>Lv1–19</th><th>Lv20–35</th><th>Lv36–60</th><th>Lv61+</th><th>恐竜以外 / 補足</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>木材</td>
+            <td>石の斧。モスコプスがいれば補助。</td>
+            <td>金属の斧 → ステゴ Lv26 → <span class="best">マンモス Lv31</span></td>
+            <td><span class="best">マンモス</span>を継続。木材重量75%軽減。</td>
+            <td>カストロイデス Lv61 / テリジノ Lv69。運搬込みならマンモスも強い。</td>
+            <td><strong>斧系</strong>が木材向け。現在はマンモス主力でOK。</td>
+          </tr>
+          <tr>
+            <td>わら</td>
+            <td>石のピッケル。トリケラ Lv16も大量に取れる。</td>
+            <td>金属のピッケル / マンモス Lv31。</td>
+            <td>マンモスで木材と同時回収。</td>
+            <td>ブロント Lv63で大量回収。マンモスでも十分。</td>
+            <td><strong>ピッケル系</strong>で木を叩くと木材よりわら寄り。</td>
+          </tr>
+          <tr>
+            <td>繊維</td>
+            <td>手摘み / モスコプス。</td>
+            <td><span class="best">金属の鎌 Lv30</span>。</td>
+            <td>金属の鎌を継続。採取量が多く手軽。</td>
+            <td>テリジノ Lv69。大量なら高効率。</td>
+            <td><strong>金属の鎌が非常に優秀</strong>なので恐竜必須ではない。</td>
+          </tr>
+          <tr>
+            <td>ベリー<br><span class="muted">ナルコ含む</span></td>
+            <td>手摘み → パラサウロロフス Lv9 → <span class="best">トリケラ Lv16</span></td>
+            <td>トリケラ / ステゴ Lv26。</td>
+            <td>ステゴなどの草食恐竜でまとめて採る。</td>
+            <td>ブロント Lv63 / テリジノ Lv69。</td>
+            <td>序盤は麻酔薬用ナルコベリーを優先して確保。</td>
+          </tr>
+          <tr>
+            <td>石</td>
+            <td>石の斧で岩を叩く。</td>
+            <td>金属の斧 → <span class="best">ドエディクルス Lv34</span></td>
+            <td><span class="best">ドエディクルス</span>。石重量75%軽減 + 自動採取。</td>
+            <td>ドエディ + アルゲン Lv62で運搬。</td>
+            <td><strong>斧系</strong>はピッケルより石寄り。</td>
+          </tr>
+          <tr>
+            <td>火打石</td>
+            <td>石のピッケル。</td>
+            <td><span class="best">金属のピッケル Lv20</span>。</td>
+            <td><span class="best">アンキロ Lv36</span>。</td>
+            <td>アンキロ + アルゲン。</td>
+            <td><strong>ピッケル系</strong>は斧より火打石寄り。</td>
+          </tr>
+          <tr>
+            <td>金属鉱石</td>
+            <td>必要最低限だけ石のピッケル。</td>
+            <td><span class="best">金属のピッケル Lv20</span>。コリンソス東の鉱脈を使う。</td>
+            <td><span class="best">アンキロ Lv36</span>。金属重量85%軽減。</td>
+            <td>アンキロ + アルゲン Lv62で遠征。</td>
+            <td>アストレオスでは<strong>コリンソス東 47/24付近</strong>の低地が序盤向け。</td>
+          </tr>
+          <tr>
+            <td>水晶</td>
+            <td>石ピッケルでも可能だが効率が低い。</td>
+            <td><span class="best">金属のピッケル</span>。</td>
+            <td><span class="best">アンキロ</span>。</td>
+            <td>アンキロ + アルゲン。</td>
+            <td>アストレオスでは山頂付近の<strong>薄紫色の水晶</strong>を狙う。</td>
+          </tr>
+          <tr>
+            <td>黒曜石</td>
+            <td>本格的に集めるのは後回し。</td>
+            <td><span class="best">金属のピッケル</span>。</td>
+            <td><span class="best">アンキロ</span>。</td>
+            <td>アンキロ + アルゲン。</td>
+            <td>高地・山岳の黒く光る鉱石。金属採掘遠征とまとめやすい。</td>
+          </tr>
+          <tr>
+            <td>キチン / ケラチン</td>
+            <td><span class="best">カルボネミス</span>を弓で倒して斧で剥ぐ。海岸の三葉虫も狙う。</td>
+            <td>同じルートを金属の斧で高速化。</td>
+            <td><span class="best">メガテリウム Lv52 + 虫洞窟</span>。</td>
+            <td>メガテリウム / テリジノ Lv69。</td>
+            <td>三葉虫はキチンに加え、原油・シリカ真珠・黒真珠も狙える。</td>
+          </tr>
+          <tr>
+            <td>セメント</td>
+            <td>すり鉢で<strong>キチン/ケラチン + 石</strong>から作る。</td>
+            <td>同じ。必要量が少ないうちはクラフトで十分。</td>
+            <td>ビーバーダムを見つけたら回収。カエルで虫狩りも候補。</td>
+            <td>ビーバーダム / ベールゼブフォ / アフリカマイマイのペースト。</td>
+            <td>アストレオスでは<strong>フォキントス 5.7/7.3付近</strong>の巨大ビーバーダムが候補。</td>
+          </tr>
+          <tr>
+            <td>原油</td>
+            <td>コリンソス東の海岸で<strong>打ち上げられたメガロドンの死体</strong>を見つけたら回収。</td>
+            <td>金属のピッケルで原油岩を採掘。</td>
+            <td>アンキロで原油岩。海に出るなら水中採掘へ。</td>
+            <td>ダンクルオステウスなどで大量採掘 / 油田利用。</td>
+            <td>三葉虫からも少量。フォキントスには原油ポンプを置ける油田がある。</td>
+          </tr>
+          <tr>
+            <td>シリカ真珠</td>
+            <td>海岸の三葉虫を見つけたら回収。</td>
+            <td>浅瀬・水中の貝を手で拾う。</td>
+            <td>安全な水中移動手段を用意して採取範囲を広げる。</td>
+            <td>アングラーなど水中採取生物を使う。</td>
+            <td>貝は<strong>道具不要で手拾い</strong>。ビーバーダムにも入ることがある。</td>
+          </tr>
+          <tr>
+            <td>皮</td>
+            <td>序盤の生物を倒して<strong>斧</strong>で剥ぎ取る。海岸のメガロドン死体も便利。</td>
+            <td>金属の斧で効率化。</td>
+            <td>戦闘用肉食恐竜で狩りながら回収。</td>
+            <td>大量狩り + 高品質ツール / 採取恐竜。</td>
+            <td>ピッケルより<strong>斧のほうが皮寄り</strong>。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="astraeos">
+    <div class="section-head"><h2 class="section-title">Astraeos 素材スポット</h2><div class="section-note">コリンソス東拠点から使いやすい場所</div></div>
+    <div class="spot-grid">
+      <div class="spot-card">
+        <div class="spot-title"><h3>金属鉱石</h3><span class="coord">47 / 24 付近</span></div>
+        <p>コリンソス東の海に近い低地。序盤でも行きやすく、金属鉱脈がまとまっている。</p>
+        <div class="flow"><span>Lv20 金属ピッケル</span><i>→</i><span>Lv36 アンキロ</span><i>→</i><span>Lv62 アルゲン運搬</span></div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-title"><h3>キチン / ケラチン</h3><span class="coord">コリンソス東 海岸</span></div>
+        <p>序盤はカルボネミスを弓で安全に倒し、斧で剥ぎ取る。三葉虫を見つけたら優先して狩る。</p>
+        <p>中盤は狩人の洞窟へ移行すると虫をまとめて狩れる。</p>
+      </div>
+      <div class="spot-card">
+        <div class="spot-title"><h3>狩人の洞窟</h3><span class="coord">30.1 / 9.8</span></div>
+        <p>虫が多い洞窟。メガテリウムを用意できるLv52前後から、キチン集めと洞窟攻略を兼ねやすい。</p>
+        <div class="tag-row"><span class="tag warn">洞窟</span><span class="tag">虫多数</span><span class="tag">メガテリウム向け</span></div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-title"><h3>セメント</h3><span class="coord">フォキントス 5.7 / 7.3</span></div>
+        <p>大きな河に巨大ビーバーダムが生成される候補。ダムを開けると周囲のビーバーが敵対するので、逃げ道を確保してから回収する。</p>
+      </div>
+      <div class="spot-card">
+        <div class="spot-title"><h3>原油</h3><span class="coord">コリンソス東 → フォキントス</span></div>
+        <p>超序盤はコリンソス東半島の南西側などにあるメガロドンの死体が手軽。中盤以降は原油岩、油田、水中採掘へ。</p>
+      </div>
+      <div class="spot-card">
+        <div class="spot-title"><h3>テレポート</h3><span class="coord">PC: R長押し</span></div>
+        <p>Astraeosはスポーン地域間のテレポートが標準機能。遠征先を決めたらR長押しのラジアルメニューから移動できる。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mods">
+    <div class="section-head"><h2 class="section-title">MOD 運用メモ</h2><div class="section-note">便利にはするが、ARK本来の進行は残す構成</div></div>
+    <div class="mod-grid">
+      <div class="mod-card">
+        <h3>Visual Storage</h3><span class="mod-status">導入中</span>
+        <ul>
+          <li>Wireless Craftingで、近くのVSストレージ内素材をクラフトに直接利用できる。</li>
+          <li>VSかまどに燃料用の木材を入れていると、建築材料として使われる場合がある。</li>
+          <li>現在の運用では<strong>かまど近くに木材用VSストレージを置き、そちらを材料側に使わせる</strong>。</li>
+          <li>将来的に工業炉を使う段階ではガソリン燃料になるため、木材問題の影響は小さくなる。</li>
+          <li>VSの個数が一時的に5倍表示されたことがあるが、実際の個数は増えておらず再入場で解消。ローカルの <code>ItemStackSizeMultiplier=1</code> も確認済み。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>Upgrade Station</h3><span class="mod-status">導入中 · Ghazlawl</span>
+        <ul>
+          <li>Upgrade Stationを設置し、強化したい武器・防具・道具・サドルを中へ入れる。</li>
+          <li>対象を選び、必要素材を入れて <strong>ATTEMPT UPGRADE</strong>。</li>
+          <li>不要な装備はSalvageで分解して素材の一部を回収できる。</li>
+          <li>最初は不要な低品質装備で操作を試すと分かりやすい。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>Super Spyglass Plus</h3><span class="mod-status">導入中</span>
+        <ul>
+          <li>野生・テイム済み生物のレベルやステータス確認をしやすくする。</li>
+          <li>テイム候補の個体選びに使用。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>Configurable Cryopods</h3><span class="mod-status">導入予定</span>
+        <ul>
+          <li>探していた「ポッド収納時に恐竜の荷物を落とさない」機能を持つCryopod拡張。</li>
+          <li><code>CryoInventoryItems=True</code> で、収納した恐竜のインベントリを保持したまま再展開できる。</li>
+          <li>木材を積んだマンモスなどを、そのまま運搬用ポッドに入れられる。</li>
+          <li>ArkNavはASAでは使わない方針。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="farming">
+    <div class="section-head"><h2 class="section-title">菜園</h2><div class="section-note">作物の収穫方法</div></div>
+    <div class="info-card">
+      <h3>「収穫期」になったら、作物は菜園インベントリに自動で増える</h3>
+      <p>収穫ボタンを押す方式ではない。菜園を開いて、中に生成されたベリーや野菜を自分のインベントリへ移せば収穫完了。</p>
+      <p>水・肥料・植えた種が維持されていれば、収穫後もそのまま次の作物が増えていく。</p>
+      <div class="flow"><span>水 + 肥料 + 種</span><i>→</i><span>成長</span><i>→</i><span>収穫期</span><i>→</i><span>菜園内に作物が自動生成</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="notes">
+    <div class="section-head"><h2 class="section-title">覚えておくこと</h2><div class="section-note">プレイ中の判断用</div></div>
+    <div class="quick-note"><strong>採取道具の基本</strong><span>木・皮・石を多めに欲しいときは斧寄り。わら・肉・火打石・鉱石類はピッケル寄り。</span></div>
+    <div class="quick-note"><strong>採取恐竜の優先</strong><span>マンモス → ドエディクルス → アンキロサウルスまで揃うと、主要建築素材の採取が一気に楽になる。</span></div>
+    <div class="quick-note"><strong>運搬の次の大きな改善</strong><span>Lv62のアルゲンタヴィス。アンキロやドエディなどの採取遠征と相性が良い。</span></div>
+    <div class="quick-note"><strong>キチンの段階</strong><span>序盤はカルボネミス / 三葉虫、中盤はメガテリウムで洞窟の虫へ。</span></div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="section-head"><h2 class="section-title">確認用リンク</h2><div class="section-note">仕様変更時の再確認用</div></div>
+    <div class="source-list">
+      <a href="https://ark.wiki.gg/wiki/Gathering_and_Weight_Reduction" target="_blank" rel="noopener">ARK Official Community Wiki — Gathering and Weight Reduction</a>
+      <a href="https://ark.wiki.gg/wiki/Astraeos" target="_blank" rel="noopener">ARK Official Community Wiki — Astraeos</a>
+      <a href="https://kamigame.jp/asa/page/356312065813518502.html" target="_blank" rel="noopener">神ゲー攻略 — アストレオスの素材や資源入手場所</a>
+      <a href="https://www.curseforge.com/ark-survival-ascended/mods/configurable-cryopods" target="_blank" rel="noopener">CurseForge — Configurable Cryopods</a>
+      <a href="https://www.curseforge.com/ark-survival-ascended/mods/upgrade-station" target="_blank" rel="noopener">CurseForge — Upgrade Station</a>
+    </div>
+  </section>
+
+  <footer class="footer"><a class="back-link" href="../../">← ゲームライブラリに戻る</a><br>ARK: Survival Ascended · Astraeos</footer>
+</main>
+</body>
+</html>
