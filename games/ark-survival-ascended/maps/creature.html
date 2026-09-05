@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ARK: Survival Ascended の生物別生息地・基本情報。">
+  <title>Creature | ARK: Survival Ascended</title>
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .creature-layout{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:14px}
+    .portrait-panel,.map-panel,.info-panel{border:1px solid var(--line);border-radius:18px;background:#070707;overflow:hidden}
+    .portrait-panel{min-height:320px;display:grid;place-items:center;padding:14px}
+    .portrait-panel img{display:block;max-width:100%;max-height:430px;object-fit:contain}
+    .portrait-placeholder{color:#666;font-size:12px;text-align:center}
+    .map-panel{padding:15px}
+    .map-stack{position:relative;aspect-ratio:1/1;max-width:720px;margin:0 auto;border:1px solid #1f1f1f;border-radius:14px;overflow:hidden;background:#0b0b0b}
+    .map-stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+    .map-stack .spawn-layer{z-index:2;pointer-events:none}
+    .map-caption{margin-top:10px;color:#797979;font-size:11px;line-height:1.6}
+    .map-warning{display:none;margin-top:10px;padding:10px 12px;border:1px solid #3a3322;border-radius:11px;background:#0d0a05;color:#bbaa7c;font-size:11px}
+    .fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+    .fact{border:1px solid #222;border-radius:13px;background:#080808;padding:13px}
+    .fact small{display:block;color:#6d6d6d;font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    .fact strong{display:block;margin-top:4px;color:#e7e7e7;font-size:13px;line-height:1.35}
+    .info-panel{padding:18px}.info-panel h3{margin:0 0 8px;font-size:16px}.info-panel p{margin:0;color:#aaa;font-size:13px}.info-panel p+p{margin-top:8px}
+    .source-links{display:flex;gap:8px;flex-wrap:wrap}.source-links a{border:1px solid #292929;border-radius:999px;padding:7px 10px;color:#aaa;text-decoration:none;font-size:11px;font-weight:800}.source-links a:hover{color:#fff;border-color:#555}
+    .loading-box{padding:16px;border:1px solid var(--line);border-radius:14px;background:#070707;color:#777;font-size:12px}
+    @media(max-width:780px){.creature-layout{grid-template-columns:1fr}.portrait-panel{min-height:230px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" id="brandLink" href="habitats.html">生息地</a>
+    <nav class="topnav" aria-label="生物ナビゲーション">
+      <a id="habitatsTop" href="habitats.html">← 生息地一覧</a>
+      <a id="mapTop" href="map.html">Map TOP</a>
+      <a href="../">ARK TOP</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs"><a href="../../../">ゲームライブラリ</a><span>/</span><a href="../">ARK</a><span>/</span><a href="../maps.html">マップ</a><span>/</span><a id="crumbMap" href="map.html">Map</a><span>/</span><a id="crumbHabitats" href="habitats.html">生息地</a><span>/</span><span id="crumbCreature">Creature</span></div>
+  <a class="back-link" id="habitatsBack" href="habitats.html">← 生息地一覧へ戻る</a>
+
+  <section class="hero">
+    <div class="eyebrow" id="heroEyebrow">CREATURE</div>
+    <h1 id="creatureName">Creature</h1>
+    <p id="creatureIntro">公式Wikiから最新情報を読み込み中...</p>
+    <div class="meta"><span class="pill" id="mapPill">Map</span><span class="pill">生息地</span><span class="pill">公式Wiki参照</span></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">見た目 / 生息地</h2><div class="section-note">公式Wikiの画像を参照</div></div>
+    <div class="creature-layout">
+      <div class="portrait-panel" id="portraitPanel"><div class="portrait-placeholder">生物画像を読み込み中...</div></div>
+      <div class="map-panel">
+        <div class="map-stack">
+          <img id="baseMap" alt="マップ" referrerpolicy="no-referrer">
+          <img id="spawnLayer" class="spawn-layer" alt="生息地オーバーレイ" referrerpolicy="no-referrer">
+        </div>
+        <div class="map-caption" id="mapCaption">色付き範囲が出現エリアの目安です。</div>
+        <div class="map-warning" id="mapWarning">この生物について、公式Wiki上でこのマップ用の個別スポーン画像を確認できませんでした。マップ画像と下の公式Wikiリンクを併用してください。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">基本情報</h2><div class="section-note">取得できた項目を表示</div></div>
+    <div id="factsLoading" class="loading-box">基本情報を読み込み中...</div>
+    <div class="fact-grid" id="factGrid" hidden></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">知っておくと便利</h2><div class="section-note">まずは確実な情報を優先</div></div>
+    <div class="info-panel">
+      <h3>このページの使い方</h3>
+      <p>生息地は公式Wikiの記事に掲載されているスポーン画像を優先して表示しています。テイム方法・特殊能力・仕様変更など、細かい内容は下の公式Wiki記事を確認元として使えます。</p>
+      <p>よく使う生物は、ブローバックのように後から個別に詳しい日本語メモへ差し替えられる構成です。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">参考元</h2><div class="section-note">最新仕様の再確認用</div></div>
+    <div class="source-links" id="sourceLinks"></div>
+  </section>
+
+  <footer class="footer"><a class="back-link" id="footerBack" href="habitats.html">← 生息地一覧へ戻る</a><br><span id="footerText">ARK: Survival Ascended</span></footer>
+</main>
+
+<script src="map-data.js"></script>
+<script>
+(() => {
+  const params=new URLSearchParams(location.search);
+  const slug=params.get('map')||'astraeos';
+  const map=window.ARK_MAPS?.[slug];
+  const requestedName=params.get('name')||'Creature';
+  const wikiTitle=params.get('wiki')||requestedName.replace(/ /g,'_');
+  if(!map){document.getElementById('creatureIntro').textContent='マップが見つかりません。';return}
+
+  const mapUrl=`map.html?map=${encodeURIComponent(slug)}`;
+  const habitatsUrl=`habitats.html?map=${encodeURIComponent(slug)}`;
+  const wikiCreatureUrl=`https://ark.wiki.gg/wiki/${encodeURIComponent(wikiTitle).replace(/%3A/g,':')}`;
+  const wikiMapUrl=`https://ark.wiki.gg/wiki/${encodeURIComponent(map.wikiPage).replace(/%3A/g,':')}`;
+
+  document.title=`${requestedName} | ${map.name} | ARK: Survival Ascended`;
+  document.getElementById('creatureName').textContent=requestedName;
+  document.getElementById('crumbCreature').textContent=requestedName;
+  document.getElementById('heroEyebrow').textContent=`${map.name.toUpperCase()} · CREATURE`;
+  document.getElementById('mapPill').textContent=map.name;
+  document.getElementById('brandLink').textContent=`${map.name} 生息地`;
+  document.getElementById('brandLink').href=habitatsUrl;
+  document.getElementById('habitatsTop').href=habitatsUrl;
+  document.getElementById('habitatsBack').href=habitatsUrl;
+  document.getElementById('footerBack').href=habitatsUrl;
+  document.getElementById('mapTop').href=mapUrl;
+  document.getElementById('crumbMap').textContent=map.name;
+  document.getElementById('crumbMap').href=mapUrl;
+  document.getElementById('crumbHabitats').href=habitatsUrl;
+  document.getElementById('footerText').textContent=`ARK: Survival Ascended · ${map.name} · ${requestedName}`;
+  document.getElementById('sourceLinks').innerHTML=`<a href="${wikiCreatureUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${escapeHtml(requestedName)}</a><a href="${wikiMapUrl}" target="_blank" rel="noopener">${escapeHtml(map.name)} マップ情報</a>`;
+
+  const specialFile=file=>`https://ark.wiki.gg/wiki/Special:Redirect/file/${encodeURIComponent(file)}`;
+  const baseMap=document.getElementById('baseMap');
+  const spawnLayer=document.getElementById('spawnLayer');
+  const mapWarning=document.getElementById('mapWarning');
+  baseMap.src=specialFile(map.mapFile);
+  baseMap.alt=`${map.name} マップ`;
+
+  function clean(text){return String(text||'').replace(/\[edit\]/gi,'').replace(/\s+/g,' ').trim()}
+  function escapeHtml(text){const d=document.createElement('div');d.textContent=String(text||'');return d.innerHTML}
+  function absoluteWikiSrc(src){if(!src)return'';if(src.startsWith('//'))return 'https:'+src;if(src.startsWith('/'))return 'https://ark.wiki.gg'+src;return src}
+
+  function jsonp(params){
+    return new Promise((resolve,reject)=>{
+      const cb='arkWikiCreatureCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      const script=document.createElement('script');
+      const q=new URLSearchParams({...params,format:'json',callback:cb});
+      const timer=setTimeout(()=>{cleanup();reject(new Error('JSONP timeout'))},15000);
+      function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
+      window[cb]=data=>{cleanup();resolve(data)};
+      script.onerror=()=>{cleanup();reject(new Error('JSONP error'))};
+      script.src='https://ark.wiki.gg/api.php?'+q.toString();
+      document.head.appendChild(script);
+    });
+  }
+  async function wikiApi(params){
+    const q=new URLSearchParams({...params,format:'json',origin:'*'});
+    try{const r=await fetch('https://ark.wiki.gg/api.php?'+q.toString(),{mode:'cors'});if(!r.ok)throw new Error('HTTP '+r.status);return await r.json()}catch(e){return jsonp(params)}
+  }
+
+  function renderFacts(doc){
+    const wanted=[
+      ['Group','分類'],['Diet','食性'],['Temperament','性格'],['Tameable','テイム'],['Rideable','騎乗'],['Breedable','繁殖'],['Saddle level','サドルLv'],['Saddle','サドル'],['Rider Weaponry','騎乗射撃'],['Torpor Immune','昏睡耐性']
+    ];
+    const result=[];
+    const rows=[...doc.querySelectorAll('tr')];
+    for(const [key,label] of wanted){
+      for(const row of rows){
+        const cells=[...row.children].filter(x=>x.tagName==='TH'||x.tagName==='TD');
+        if(cells.length<2)continue;
+        const k=clean(cells[0].textContent).replace(/\s+/g,' ');
+        if(k.toLowerCase()!==key.toLowerCase())continue;
+        const value=clean(cells.slice(1).map(c=>c.textContent).join(' '));
+        if(value && !result.some(x=>x.label===label))result.push({label,value});
+      }
+    }
+    const host=document.getElementById('factGrid');
+    const loading=document.getElementById('factsLoading');
+    if(result.length){host.innerHTML=result.map(f=>`<div class="fact"><small>${escapeHtml(f.label)}</small><strong>${escapeHtml(f.value)}</strong></div>`).join('');host.hidden=false;loading.hidden=true}
+    else{loading.textContent='基本情報の自動抽出対象が見つかりませんでした。詳細は公式Wikiから確認できます。'}
+  }
+
+  function setupHabitatOverlay(doc){
+    const imgs=[...doc.querySelectorAll('img')];
+    const targetMap=map.wikiMapName.toLowerCase();
+    const creatureLower=requestedName.toLowerCase();
+    const exact=imgs.find(img=>{
+      const alt=clean(img.getAttribute('alt')).toLowerCase();
+      return alt.includes('spawning') && alt.includes(targetMap) && (alt.includes(creatureLower)||creatureLower.includes(alt.replace('spawning','').replace(targetMap,'').replace('.svg','').trim()));
+    });
+    const anyMapSpawn=imgs.find(img=>{const alt=clean(img.getAttribute('alt')).toLowerCase();return alt.includes('spawning')&&alt.includes(targetMap)});
+    const src=absoluteWikiSrc((exact||anyMapSpawn)?.getAttribute('src'));
+    let attempts=[];
+    if(src)attempts.push(src);
+    attempts.push(specialFile(`Spawning ${requestedName} ${map.wikiMapName}.svg`));
+    const wikiPlain=decodeURIComponent(wikiTitle).replace(/_/g,' ');
+    if(wikiPlain!==requestedName)attempts.push(specialFile(`Spawning ${wikiPlain} ${map.wikiMapName}.svg`));
+    attempts=[...new Set(attempts)];
+    let i=0;
+    const tryNext=()=>{
+      if(i>=attempts.length){spawnLayer.style.display='none';mapWarning.style.display='block';document.getElementById('mapCaption').textContent=`${map.name} のベースマップ。個別スポーン範囲は公式Wiki記事から確認してください。`;return}
+      spawnLayer.src=attempts[i++];
+    };
+    spawnLayer.onerror=tryNext;
+    spawnLayer.onload=()=>{mapWarning.style.display='none';document.getElementById('mapCaption').textContent=`${map.name}：色付き範囲が ${requestedName} の出現エリアの目安です。`};
+    tryNext();
+  }
+
+  async function load(){
+    try{
+      const [queryData,parseData]=await Promise.all([
+        wikiApi({action:'query',prop:'pageimages|extracts',titles:wikiTitle,pithumbsize:'700',exintro:'1',explaintext:'1',redirects:'1'}),
+        wikiApi({action:'parse',page:wikiTitle,prop:'text',redirects:'1'})
+      ]);
+      const pages=queryData?.query?.pages||{};
+      const page=Object.values(pages)[0]||{};
+      const intro=clean(page.extract);
+      document.getElementById('creatureIntro').textContent=intro || `${requestedName} の生息地と基本情報。最新仕様は公式Wikiを確認元として表示します。`;
+      const portrait=document.getElementById('portraitPanel');
+      if(page.thumbnail?.source){portrait.innerHTML=`<img src="${page.thumbnail.source}" alt="${escapeHtml(requestedName)}" referrerpolicy="no-referrer">`}else{portrait.innerHTML='<div class="portrait-placeholder">公式Wikiから生物画像を取得できませんでした。</div>'}
+      const html=parseData?.parse?.text?.['*'];
+      if(html){const doc=new DOMParser().parseFromString(html,'text/html');renderFacts(doc);setupHabitatOverlay(doc)}else{throw new Error('article html missing')}
+    }catch(err){
+      document.getElementById('creatureIntro').textContent=`${requestedName} の自動情報取得に失敗しました。下の公式Wikiリンクから最新情報を確認できます。`;
+      document.getElementById('factsLoading').textContent='基本情報を取得できませんでした。';
+      spawnLayer.style.display='none';mapWarning.style.display='block';
+      console.error(err);
+    }
+  }
+  load();
+})();
+</script>
+</body>
+</html>
