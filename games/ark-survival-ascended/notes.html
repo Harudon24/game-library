@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ARK: Survival Ascended のプレイ中メモ、菜園、現在の進行状況。">
+  <title>プレイメモ | ARK: Survival Ascended</title>
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <style>
+    .overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .info-card{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .info-card h3{margin:0 0 7px;font-size:17px;letter-spacing:-.02em}.info-card p{margin:0;color:#a5a5a5;font-size:13px}.info-card p+p{margin-top:8px}
+    .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.tag{display:inline-flex;align-items:center;border:1px solid #2a2a2a;border-radius:999px;background:#0b0b0b;color:#adadad;padding:5px 8px;font-size:11px;font-weight:800}.tag.good{color:var(--good)}
+    .flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}.flow span{border:1px solid #292929;border-radius:9px;background:#0b0b0b;padding:6px 9px;color:#b7b7b7;font-size:11px;font-weight:800}.flow i{font-style:normal;color:#555}
+    @media(max-width:760px){.overview-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="./">ARK: Survival Ascended</a>
+    <nav class="topnav" aria-label="ARKナビゲーション"><a href="./">← ARK TOP</a><a href="../../">ゲームライブラリ</a></nav>
+  </header>
+  <div class="breadcrumbs"><a href="../../">ゲームライブラリ</a><span>/</span><a href="./">ARK: Survival Ascended</a><span>/</span><span>プレイメモ</span></div>
+  <a class="back-link" href="./">← ARK TOPへ戻る</a>
+
+  <section class="hero">
+    <div class="eyebrow">ARK · PLAY NOTES</div>
+    <h1>プレイメモ</h1>
+    <p>現在の進行状況や、プレイ中に覚えておきたい細かい仕様をまとめています。</p>
+    <div class="meta"><span class="pill">Astraeos</span><span class="pill">ローカル / ソロ</span></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">現在の状況</h2><div class="section-note">進行に合わせて更新</div></div>
+    <div class="overview-grid">
+      <div class="info-card"><h3>木材担当はマンモス</h3><p>マンモスは捕獲済み。木材の重量を75%軽減し、木材とわらを大量に集められるので当面の主力。</p><div class="tag-row"><span class="tag good">主力</span><span class="tag">サドル Lv31</span><span class="tag">木材 -75%</span></div></div>
+      <div class="info-card"><h3>拠点はコリンソス東</h3><p>比較的安全で、海岸・金属・水晶などへアクセスしやすい。序盤から中盤までそのままメイン拠点として使いやすい。</p><div class="tag-row"><span class="tag">海岸資源</span><span class="tag">金属</span><span class="tag">水晶</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">菜園</h2><div class="section-note">作物の収穫方法</div></div>
+    <div class="info-card">
+      <h3>「収穫期」になったら、作物は菜園インベントリに自動で増える</h3>
+      <p>収穫ボタンを押す方式ではない。菜園を開いて、中に生成されたベリーや野菜を自分のインベントリへ移せば収穫完了。</p>
+      <p>水・肥料・植えた種が維持されていれば、収穫後もそのまま次の作物が増えていく。</p>
+      <div class="flow"><span>水 + 肥料 + 種</span><i>→</i><span>成長</span><i>→</i><span>収穫期</span><i>→</i><span>菜園内に作物が自動生成</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">覚えておくこと</h2><div class="section-note">プレイ中の判断用</div></div>
+    <div class="quick-note"><strong>採取道具の基本</strong><span>木・皮・石を多めに欲しいときは斧寄り。わら・肉・火打石・鉱石類はピッケル寄り。</span></div>
+    <div class="quick-note"><strong>採取恐竜の優先</strong><span>マンモス → ドエディクルス → アンキロサウルスまで揃うと、主要建築素材の採取が一気に楽になる。</span></div>
+    <div class="quick-note"><strong>運搬の次の大きな改善</strong><span>Lv62のアルゲンタヴィス。アンキロやドエディなどの採取遠征と相性が良い。</span></div>
+    <div class="quick-note"><strong>キチンの段階</strong><span>序盤はカルボネミス / 三葉虫、中盤はメガテリウムで洞窟の虫へ。</span></div>
+  </section>
+
+  <footer class="footer"><a class="back-link" href="./">← ARK TOPへ戻る</a><br>ARK: Survival Ascended · プレイメモ</footer>
+</main>
+</body>
+</html>
