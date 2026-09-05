@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="ARK: Survival Ascended のマップ別ガイド入口。">
+  <meta name="description" content="ARK: Survival Ascended の実装済みマップ一覧。各マップから素材集め・生物生息地へ移動。">
   <title>マップを選ぶ | ARK: Survival Ascended</title>
   <link rel="stylesheet" href="../../assets/css/common.css">
   <style>
     .map-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .map-card{min-height:178px}.map-card h3{margin-right:52px}
+    .map-card{min-height:178px}
+    .map-card h3{margin-right:52px}
     .map-status{display:inline-flex;align-items:center;gap:6px;margin-top:12px;border:1px solid #292929;border-radius:999px;padding:5px 8px;color:#8f8f8f;font-size:10px;font-weight:850}
-    .map-status.live{color:var(--good)}.map-status.future{color:var(--warn)}
+    .map-status.live{color:var(--good)}
+    .map-status.future{color:var(--warn)}
     .section-copy{margin:-3px 3px 13px;color:#777;font-size:12px}
     @media(max-width:900px){.map-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:620px){.map-grid{grid-template-columns:1fr}}
@@ -20,7 +22,10 @@
 <main class="shell">
   <header class="topbar">
     <a class="brand" href="./">ARK: Survival Ascended</a>
-    <nav class="topnav" aria-label="ARKナビゲーション"><a href="./">← ARK TOP</a><a href="../../">ゲームライブラリ</a></nav>
+    <nav class="topnav" aria-label="ARKナビゲーション">
+      <a href="./">← ARK TOP</a>
+      <a href="../../">ゲームライブラリ</a>
+    </nav>
   </header>
 
   <div class="breadcrumbs"><a href="../../">ゲームライブラリ</a><span>/</span><a href="./">ARK: Survival Ascended</a><span>/</span><span>マップを選ぶ</span></div>
@@ -29,42 +34,36 @@
   <section class="hero">
     <div class="eyebrow">ARK · MAP SELECT</div>
     <h1>マップを<br>選ぶ</h1>
-    <p>マップを選んだあと、そのマップの「素材集め」「生息地」「洞窟」などのカテゴリから見たい情報へ進む構成。</p>
-    <div class="meta"><span class="pill"><span class="status-dot"></span>Astraeos 作成中</span><span class="pill">他マップは順次追加</span></div>
+    <p>実装済みマップはすべて開けます。各マップの中から「生息地」を選ぶと、そのマップに出現する生物を検索して個別ページへ移動できます。</p>
+    <div class="meta"><span class="pill"><span class="status-dot"></span>実装済み 10マップ</span><span class="pill">全マップ 生息地対応</span></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2 class="section-title">ASA 実装済みマップ</h2><div class="section-note">Astraeosのみ中身を作成中</div></div>
+    <div class="section-head"><h2 class="section-title">ASA 実装済みマップ</h2><div class="section-note">すべて選択可能</div></div>
     <div class="map-grid">
-      <div class="card map-card disabled"><small>Story Map</small><h3>The Island</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Story Map</small><h3>Scorched Earth</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Expansion Map</small><h3>The Center</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Story Map</small><h3>Aberration</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Story Map</small><h3>Extinction</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-
-      <a class="card map-card" href="maps/astraeos.html">
-        <div class="arrow">→</div><small>Expansion Map · プレイ中</small><h3>Astraeos</h3>
-        <p>素材集め・生息地など、Astraeos専用の各ガイドを選択。</p>
-        <span class="map-status live">● ガイド作成中</span>
-      </a>
-
-      <div class="card map-card disabled"><small>Expansion Map</small><h3>Ragnarok</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Expansion Map</small><h3>Valguero</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Story Expansion</small><h3>Lost Colony</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
-      <div class="card map-card disabled"><small>Story Map</small><h3>Genesis: Part 1</h3><p>マップ別ガイドは準備中。</p><span class="map-status">ページ準備中</span></div>
+      <a class="card map-card" href="maps/map.html?map=the-island"><div class="arrow">→</div><small>Base Map</small><h3>The Island</h3><p>ASAの基本マップ。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=scorched-earth"><div class="arrow">→</div><small>Story Map</small><h3>Scorched Earth</h3><p>砂漠・ワイバーン・特殊資源。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=the-center"><div class="arrow">→</div><small>Expansion Map</small><h3>The Center</h3><p>巨大洞窟と多様な地形。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=aberration"><div class="arrow">→</div><small>Story Map</small><h3>Aberration</h3><p>地下世界・Aberrant生物。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=extinction"><div class="arrow">→</div><small>Story Map</small><h3>Extinction</h3><p>荒廃した地球・Corrupted生物。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=astraeos"><div class="arrow">→</div><small>Expansion Map · プレイ中</small><h3>Astraeos</h3><p>現在プレイ中。素材集めページも作成済み。</p><span class="map-status live">● 生息地 + 素材</span></a>
+      <a class="card map-card" href="maps/map.html?map=ragnarok"><div class="arrow">→</div><small>Expansion Map</small><h3>Ragnarok</h3><p>広大な無料拡張マップ。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=valguero"><div class="arrow">→</div><small>Expansion Map</small><h3>Valguero</h3><p>Deinonychusなど独自生物も出現。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=lost-colony"><div class="arrow">→</div><small>Story Expansion</small><h3>Lost Colony</h3><p>ASAの新規ストーリー拡張。</p><span class="map-status live">● 生息地対応</span></a>
+      <a class="card map-card" href="maps/map.html?map=genesis-part-1"><div class="arrow">→</div><small>Story Map</small><h3>Genesis: Part 1</h3><p>5つのシミュレーションバイオーム。</p><span class="map-status live">● 生息地対応</span></a>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2 class="section-title">今後のASAマップ</h2><div class="section-note">実装後・情報確定後に追加予定</div></div>
-    <p class="section-copy">リリース予定は変更される可能性があるため、ここではマップ名だけ先に用意しています。</p>
+    <div class="section-head"><h2 class="section-title">今後のASAマップ</h2><div class="section-note">未実装</div></div>
+    <p class="section-copy">実装時期は変更される可能性があるため、まだカードからは開けません。</p>
     <div class="map-grid">
       <div class="card map-card disabled"><small>Story Map · Upcoming</small><h3>Genesis: Part 2</h3><p>ASA版は今後実装予定。</p><span class="map-status future">今後追加</span></div>
       <div class="card map-card disabled"><small>Expansion Map · Upcoming</small><h3>Crystal Isles</h3><p>ASA版は今後実装予定。</p><span class="map-status future">今後追加</span></div>
       <div class="card map-card disabled"><small>Expansion Map · Upcoming</small><h3>Lost Island</h3><p>ASA版は今後実装予定。</p><span class="map-status future">今後追加</span></div>
       <div class="card map-card disabled"><small>Expansion Map · Upcoming</small><h3>Fjordur</h3><p>ASA版は今後実装予定。</p><span class="map-status future">今後追加</span></div>
-      <div class="card map-card disabled"><small>ASA Expansion · Upcoming</small><h3>Dragontopia</h3><p>ASA向け新規マップ。実装後にガイドを追加予定。</p><span class="map-status future">今後追加</span></div>
-      <div class="card map-card disabled"><small>ASA Expansion · Upcoming</small><h3>Atlantis</h3><p>ASA向け新規マップ。実装後にガイドを追加予定。</p><span class="map-status future">今後追加</span></div>
+      <div class="card map-card disabled"><small>ASA Expansion · Upcoming</small><h3>Dragontopia</h3><p>ASA向け新規マップ。</p><span class="map-status future">今後追加</span></div>
+      <div class="card map-card disabled"><small>ASA Expansion · Upcoming</small><h3>Atlantis</h3><p>ASA向け新規マップ。</p><span class="map-status future">今後追加</span></div>
     </div>
   </section>
 
