@@ -70,6 +70,7 @@
   const loading = document.getElementById('loading');
   const searchInput = document.getElementById('searchInput');
   const groupSelect = document.getElementById('groupSelect');
+  const cacheKey = `ark-habitats-v2-${slug}`;
   let creatures = [];
 
   if (!map) {
@@ -99,11 +100,19 @@
   function normalize(text){return clean(text).toLocaleLowerCase('ja').normalize('NFKC')}
   function baseName(name){return name.replace(/^(Aberrant |Alpha |Astral |Corrupted |Enraged |Lightning |Revenant |Skeletal |Tek |X-)/i,'').trim()}
   function aliasFor(name){return window.ARK_CREATURE_ALIASES?.[name] || window.ARK_CREATURE_ALIASES?.[baseName(name)] || ''}
+  function escapeHtml(text){const d=document.createElement('div');d.textContent=String(text||'');return d.innerHTML}
+  function wikiTitleFromHref(href){
+    if(!href)return'';
+    let raw='';
+    if(href.startsWith('/wiki/'))raw=href.slice(6);
+    else if(href.startsWith('./'))raw=href.slice(2);
+    else return'';
+    try{return decodeURIComponent(raw.split('#')[0])}catch{return raw.split('#')[0]}
+  }
   function validCreatureAnchor(a){
-    const href=a.getAttribute('href')||'';
     const text=clean(a.textContent);
-    if(!href.startsWith('/wiki/')||!text)return false;
-    const title=decodeURIComponent(href.split('/wiki/')[1]||'');
+    const title=wikiTitleFromHref(a.getAttribute('href')||'');
+    if(!title||!text)return false;
     return !/^(File:|Category:|Special:|ARK:|Template:|Help:|Patch|DLC)/i.test(title) && !/^(ARK: Survival|ARK$)/i.test(text);
   }
 
@@ -142,16 +151,14 @@
     let node=start.nextElementSibling;
     while(node && node.tagName!=='H2'){
       if(/^H[3-5]$/.test(node.tagName)) group=clean(node.textContent) || group;
-      const lists=node.matches?.('ul,ol') ? [node] : [...node.querySelectorAll?.('ul,ol')||[]];
-      for(const list of lists){
-        for(const li of [...list.children].filter(x=>x.tagName==='LI')){
-          const a=[...li.querySelectorAll('a')].find(validCreatureAnchor);
-          if(!a)continue;
-          const name=clean(a.textContent);
-          const href=a.getAttribute('href');
-          const wikiTitle=decodeURIComponent((href.split('/wiki/')[1]||'').split('#')[0]);
-          if(name && wikiTitle)found.push({name,wikiTitle,group});
-        }
+      const lis=node.matches?.('li') ? [node] : [...(node.querySelectorAll?.('li') || [])];
+      for(const li of lis){
+        const ownAnchors=[...li.querySelectorAll('a')].filter(a=>a.closest('li')===li);
+        const a=ownAnchors.find(validCreatureAnchor);
+        if(!a)continue;
+        const name=clean(a.textContent);
+        const wikiTitle=wikiTitleFromHref(a.getAttribute('href'));
+        if(name && wikiTitle)found.push({name,wikiTitle,group});
       }
       node=node.nextElementSibling;
     }
@@ -170,6 +177,13 @@
     return 'creature.html?'+q.toString();
   }
 
+  function prepareGroups(){
+    const current=groupSelect.value;
+    const groups=[...new Set(creatures.map(c=>c.group))].sort((a,b)=>a.localeCompare(b,'en'));
+    groupSelect.innerHTML='<option value="">すべての分類</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
+    if(groups.includes(current))groupSelect.value=current;
+  }
+
   function render(){
     const term=normalize(searchInput.value);
     const group=groupSelect.value;
@@ -180,25 +194,42 @@
     });
     grid.innerHTML=filtered.map(c=>`<a class="creature-card" href="${detailUrl(c)}"><span class="mini-arrow">→</span><small>${escapeHtml(c.group)}</small><strong>${escapeHtml(c.name)}</strong></a>`).join('');
     document.getElementById('resultCount').textContent=`${filtered.length} / ${creatures.length} 件`;
+    document.getElementById('creatureCountPill').textContent=`${creatures.length}生物`;
   }
 
-  function escapeHtml(text){const d=document.createElement('div');d.textContent=String(text||'');return d.innerHTML}
+  function showCreatures(list,fromCache=false){
+    if(!Array.isArray(list)||!list.length)return false;
+    creatures=list;
+    prepareGroups();
+    loading.hidden=true;
+    grid.hidden=false;
+    render();
+    if(fromCache)document.getElementById('resultCount').textContent += ' · キャッシュ表示';
+    return true;
+  }
+
+  try{
+    const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');
+    if(cached?.creatures)showCreatures(cached.creatures,true);
+  }catch{}
 
   async function load(){
     try{
       const data=await wikiApi({action:'parse',page:map.wikiPage,prop:'text'});
       const html=data?.parse?.text?.['*'];
       if(!html)throw new Error('Wiki parse data missing');
-      creatures=parseCreatures(html);
-      if(!creatures.length)throw new Error('Creature list not found');
-      const groups=[...new Set(creatures.map(c=>c.group))].sort((a,b)=>a.localeCompare(b,'en'));
-      groupSelect.innerHTML='<option value="">すべての分類</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
-      loading.hidden=true;grid.hidden=false;
-      document.getElementById('creatureCountPill').textContent=`${creatures.length}生物`;
-      render();
+      const latest=parseCreatures(html);
+      if(!latest.length)throw new Error('Creature list not found');
+      showCreatures(latest,false);
+      try{localStorage.setItem(cacheKey,JSON.stringify({updated:Date.now(),creatures:latest}))}catch{}
     }catch(err){
-      loading.className='load-error';
-      loading.innerHTML=`<strong>生物一覧を自動取得できませんでした。</strong><br>公式Wiki側の一時的な制限の可能性があります。<a href="${wikiUrl}" target="_blank" rel="noopener">${map.name} の公式Wiki</a>から確認できます。`;
+      if(creatures.length){
+        document.getElementById('resultCount').textContent += ' · 最新取得失敗';
+      }else{
+        loading.hidden=false;
+        loading.className='load-error';
+        loading.innerHTML=`<strong>生物一覧を自動取得できませんでした。</strong><br>公式Wiki側の一時的な制限の可能性があります。<a href="${wikiUrl}" target="_blank" rel="noopener">${map.name} の公式Wiki</a>から確認できます。`;
+      }
       console.error(err);
     }
   }
