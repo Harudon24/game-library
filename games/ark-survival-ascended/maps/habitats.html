@@ -43,7 +43,7 @@
     <div class="eyebrow">CREATURE HABITATS</div>
     <h1><span id="mapName">Map</span><br>生息地</h1>
     <p>このマップに出現する生物を一覧から選択。カードは大量に並んでも探しやすい小型表示で、名前検索と分類絞り込みに対応。</p>
-    <div class="meta"><span class="pill">検索対応</span><span class="pill">公式Wiki参照</span><span class="pill" id="creatureCountPill">読み込み中</span></div>
+    <div class="meta"><span class="pill">検索対応</span><span class="pill" id="sourcePill">公式Wiki参照</span><span class="pill" id="creatureCountPill">読み込み中</span></div>
   </section>
 
   <section class="section">
@@ -61,6 +61,7 @@
 </main>
 
 <script src="map-data.js"></script>
+<script src="astraeos/kamigame-spawns.js"></script>
 <script>
 (() => {
   const params = new URLSearchParams(location.search);
@@ -94,7 +95,13 @@
   document.getElementById('crumbMapLink').href = mapUrl;
 
   const wikiUrl = `https://ark.wiki.gg/wiki/${encodeURIComponent(map.wikiPage).replace(/%3A/g, ':')}`;
-  document.getElementById('sourceNote').innerHTML = `一覧の確認元: <a href="${wikiUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${map.name}</a>。Wikiの「Creatures」セクションを読み込んでいるため、追加・変更された生物を反映しやすくしています。`;
+  const kamigameUrl = window.ASTRAEOS_KAMIGAME_SOURCE || 'https://kamigame.jp/asa/page/365586504895978211.html';
+  if(slug==='astraeos'){
+    document.getElementById('sourcePill').textContent='神ゲー攻略参照';
+    document.getElementById('sourceNote').innerHTML = `一覧・生息地画像の確認元: <a href="${kamigameUrl}" target="_blank" rel="noopener">神ゲー攻略 — アストレオスの生物スポーンマップ一覧</a>。掲載画像をそのまま生息地確認用に表示しています。`;
+  }else{
+    document.getElementById('sourceNote').innerHTML = `一覧の確認元: <a href="${wikiUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${map.name}</a>。Wikiの「Creatures」セクションを読み込んでいるため、追加・変更された生物を反映しやすくしています。`;
+  }
 
   function clean(text){return String(text||'').replace(/\[edit\]/gi,'').replace(/\s+/g,' ').trim()}
   function normalize(text){return clean(text).toLocaleLowerCase('ja').normalize('NFKC')}
@@ -171,6 +178,11 @@
   }
 
   function detailUrl(c){
+    if(slug==='astraeos'){
+      if(c.name==='ブローバック')return 'astraeos/creatures/burrowbuck.html';
+      const q=new URLSearchParams({map:slug,kg:c.name});
+      return 'creature.html?'+q.toString();
+    }
     const override=window.ARK_CREATURE_OVERRIDES?.[`${slug}|${c.name}`];
     if(override)return override;
     const q=new URLSearchParams({map:slug,name:c.name,wiki:c.wikiTitle});
@@ -214,6 +226,20 @@
   }catch{}
 
   async function load(){
+    if(slug==='astraeos' && Array.isArray(window.ASTRAEOS_KAMIGAME_SPAWNS)){
+      const list=window.ASTRAEOS_KAMIGAME_SPAWNS.map(row=>({
+        name:row.name,
+        wikiTitle:'',
+        group:row.image?'生息地マップあり':'神ゲー攻略で調査中',
+        article:row.article,
+        portrait:row.portrait,
+        image:row.image,
+        status:row.status,
+        kamigame:true
+      }));
+      showCreatures(list,false);
+      return;
+    }
     try{
       const data=await wikiApi({action:'parse',page:map.wikiPage,prop:'text'});
       const html=data?.parse?.text?.['*'];

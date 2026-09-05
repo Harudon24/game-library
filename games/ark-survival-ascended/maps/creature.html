@@ -46,11 +46,11 @@
     <div class="eyebrow" id="heroEyebrow">CREATURE</div>
     <h1 id="creatureName">Creature</h1>
     <p id="creatureIntro">公式Wikiから最新情報を読み込み中...</p>
-    <div class="meta"><span class="pill" id="mapPill">Map</span><span class="pill">生息地</span><span class="pill">公式Wiki参照</span></div>
+    <div class="meta"><span class="pill" id="mapPill">Map</span><span class="pill">生息地</span><span class="pill" id="sourcePill">公式Wiki参照</span></div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2 class="section-title">見た目 / 生息地</h2><div class="section-note">公式Wikiの画像を参照</div></div>
+    <div class="section-head"><h2 class="section-title">見た目 / 生息地</h2><div class="section-note" id="imageSourceNote">公式Wikiの画像を参照</div></div>
     <div class="creature-layout">
       <div class="portrait-panel" id="portraitPanel"><div class="portrait-placeholder">生物画像を読み込み中...</div></div>
       <div class="map-panel">
@@ -88,12 +88,15 @@
 </main>
 
 <script src="map-data.js"></script>
+<script src="astraeos/kamigame-spawns.js"></script>
 <script>
 (() => {
   const params=new URLSearchParams(location.search);
   const slug=params.get('map')||'astraeos';
   const map=window.ARK_MAPS?.[slug];
-  const requestedName=params.get('name')||'Creature';
+  const kgName=params.get('kg')||'';
+  const kgRow=slug==='astraeos' && kgName ? (window.ASTRAEOS_KAMIGAME_SPAWNS||[]).find(row=>row.name===kgName) : null;
+  const requestedName=kgRow?.name||params.get('name')||'Creature';
   const wikiTitle=params.get('wiki')||requestedName.replace(/ /g,'_');
   if(!map){document.getElementById('creatureIntro').textContent='マップが見つかりません。';return}
 
@@ -117,7 +120,10 @@
   document.getElementById('crumbMap').href=mapUrl;
   document.getElementById('crumbHabitats').href=habitatsUrl;
   document.getElementById('footerText').textContent=`ARK: Survival Ascended · ${map.name} · ${requestedName}`;
-  document.getElementById('sourceLinks').innerHTML=`<a href="${wikiCreatureUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${escapeHtml(requestedName)}</a><a href="${wikiMapUrl}" target="_blank" rel="noopener">${escapeHtml(map.name)} マップ情報</a>`;
+  const kamigameSource=window.ASTRAEOS_KAMIGAME_SOURCE||'https://kamigame.jp/asa/page/365586504895978211.html';
+  document.getElementById('sourceLinks').innerHTML=kgRow
+    ? `<a href="${kgRow.article}" target="_blank" rel="noopener">神ゲー攻略 — ${escapeHtml(requestedName)}</a><a href="${kamigameSource}" target="_blank" rel="noopener">アストレオス生物スポーンマップ一覧</a>`
+    : `<a href="${wikiCreatureUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${escapeHtml(requestedName)}</a><a href="${wikiMapUrl}" target="_blank" rel="noopener">${escapeHtml(map.name)} マップ情報</a>`;
 
   const specialFile=file=>`https://ark.wiki.gg/wiki/Special:Redirect/file/${encodeURIComponent(file)}`;
   const baseMap=document.getElementById('baseMap');
@@ -196,6 +202,46 @@
     tryNext();
   }
 
+  function renderKamigame(){
+    document.getElementById('sourcePill').textContent='神ゲー攻略参照';
+    document.getElementById('imageSourceNote').textContent='神ゲー攻略の画像を参照';
+    document.getElementById('creatureIntro').textContent=kgRow.image
+      ? `神ゲー攻略のアストレオス生物スポーン一覧から、${requestedName} の生物画像と生息地マップを表示しています。`
+      : `神ゲー攻略では、${requestedName} のアストレオス生息地は現在「調査中」です。生物ページと一覧へのリンクは下に残しています。`;
+
+    const portrait=document.getElementById('portraitPanel');
+    if(kgRow.portrait){
+      portrait.innerHTML=`<img src="${kgRow.portrait}" alt="${escapeHtml(requestedName)}" referrerpolicy="no-referrer">`;
+    }else{
+      portrait.innerHTML='<div class="portrait-placeholder">神ゲー攻略から生物画像を取得できませんでした。</div>';
+    }
+
+    spawnLayer.style.display='none';
+    spawnLayer.removeAttribute('src');
+    if(kgRow.image){
+      baseMap.style.display='block';
+      baseMap.src=kgRow.image;
+      baseMap.alt=`Astraeosの${requestedName}生息地マップ`;
+      mapWarning.style.display='none';
+      document.getElementById('mapCaption').textContent=`Astraeos：神ゲー攻略の掲載画像。色付き範囲が ${requestedName} の出現エリアの目安です。`;
+    }else{
+      baseMap.removeAttribute('src');
+      baseMap.style.display='none';
+      mapWarning.style.display='block';
+      mapWarning.textContent=`神ゲー攻略では現在、${requestedName} のAstraeosスポーン範囲は「調査中」です。参考元リンクから更新状況を確認できます。`;
+      document.getElementById('mapCaption').textContent='生息地マップは確認元で未掲載です。';
+    }
+
+    const factGrid=document.getElementById('factGrid');
+    const factsLoading=document.getElementById('factsLoading');
+    factGrid.innerHTML=`<div class="fact"><small>生息地マップ</small><strong>${kgRow.image?'掲載あり':'調査中'}</strong></div><div class="fact"><small>確認元</small><strong>神ゲー攻略</strong></div>`;
+    factGrid.hidden=false;
+    factsLoading.hidden=true;
+
+    const infoPanel=document.querySelector('.info-panel');
+    infoPanel.innerHTML=`<h3>このページの使い方</h3><p>アストレオスの生息地は神ゲー攻略の「アストレオスの生物スポーンマップ一覧」に掲載されている画像を使用しています。</p><p>テイム方法・能力などの詳細は下の神ゲー攻略の生物ページから確認できます。</p>`;
+  }
+
   async function load(){
     try{
       const [queryData,parseData]=await Promise.all([
@@ -217,6 +263,7 @@
       console.error(err);
     }
   }
+  if(kgRow){renderKamigame();return}
   load();
 })();
 </script>
