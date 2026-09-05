@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ARK: Survival Ascended で使用中・導入予定のMODまとめ。">
+  <title>MOD | ARK: Survival Ascended</title>
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <style>
+    .mod-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mod-card{border:1px solid var(--line);border-radius:18px;background:#070707;padding:18px}
+    .mod-card h3{margin:0;font-size:17px}.mod-status{display:inline-block;margin-top:5px;color:#777;font-size:11px;font-weight:800}
+    .mod-card ul{margin:12px 0 0;padding-left:18px;color:#a7a7a7;font-size:13px}.mod-card li+li{margin-top:5px}
+    code{border:1px solid #262626;border-radius:7px;background:#020202;color:#dedede;padding:2px 6px;font-family:"Cascadia Code",Consolas,monospace;font-size:.92em}
+    .source-list{display:grid;gap:8px}.source-list a{display:block;border:1px solid #202020;border-radius:12px;padding:10px 12px;background:#070707;color:#999;text-decoration:none;font-size:12px}.source-list a:hover{border-color:#444;color:#ddd}
+    @media(max-width:760px){.mod-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" href="./">ARK: Survival Ascended</a>
+    <nav class="topnav" aria-label="ARKナビゲーション"><a href="./">← ARK TOP</a><a href="../../">ゲームライブラリ</a></nav>
+  </header>
+  <div class="breadcrumbs"><a href="../../">ゲームライブラリ</a><span>/</span><a href="./">ARK: Survival Ascended</a><span>/</span><span>MOD</span></div>
+  <a class="back-link" href="./">← ARK TOPへ戻る</a>
+
+  <section class="hero">
+    <div class="eyebrow">ARK · MODS</div>
+    <h1>MOD</h1>
+    <p>便利にはするけど、ARK本来の進行を壊しすぎない範囲で使うMODを整理。</p>
+    <div class="meta"><span class="pill">ASA</span><span class="pill">ローカル / ソロ</span></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">導入中 / 導入予定</h2><div class="section-note">役割ごとに分けて確認</div></div>
+    <div class="mod-grid">
+      <div class="mod-card">
+        <h3>Visual Storage</h3><span class="mod-status">導入中</span>
+        <ul>
+          <li>Wireless Craftingで、近くのVSストレージ内素材をクラフトに直接利用できる。</li>
+          <li>VSかまどに燃料用の木材を入れていると、建築材料として使われる場合がある。</li>
+          <li>現在は<strong>かまど近くに木材用VSストレージを置き、そちらを材料側に使わせる</strong>運用。</li>
+          <li>工業炉へ移行すればガソリン燃料になるため、木材問題の影響は小さくなる。</li>
+          <li>VSの個数が一時的に5倍表示されたことがあるが、実数は増えておらず再入場で解消。<code>ItemStackSizeMultiplier=1</code> も確認済み。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>Upgrade Station</h3><span class="mod-status">導入中 · Ghazlawl</span>
+        <ul>
+          <li>Upgrade Stationを設置し、強化したい武器・防具・道具・サドルを中へ入れる。</li>
+          <li>対象を選び、必要素材を入れて <strong>ATTEMPT UPGRADE</strong>。</li>
+          <li>不要な装備はSalvageで分解して素材の一部を回収できる。</li>
+          <li>最初は不要な低品質装備で操作を試すと分かりやすい。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>Super Spyglass Plus</h3><span class="mod-status">導入中</span>
+        <ul><li>野生・テイム済み生物のレベルやステータス確認をしやすくする。</li><li>テイム候補の個体選びに使用。</li></ul>
+      </div>
+      <div class="mod-card">
+        <h3>Configurable Cryopods</h3><span class="mod-status">導入予定</span>
+        <ul>
+          <li>ポッド収納時に恐竜の荷物を落とさない機能を持つCryopod拡張。</li>
+          <li><code>CryoInventoryItems=True</code> で、収納した恐竜のインベントリを保持したまま再展開できる。</li>
+          <li>木材を積んだマンモスなどを、そのままポッドへ収納して運べる。</li>
+        </ul>
+      </div>
+      <div class="mod-card">
+        <h3>ArkNav</h3><span class="mod-status">削除予定</span>
+        <ul><li>ASAでは邪魔に感じるため、現在の構成から外す予定。</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 class="section-title">確認用リンク</h2><div class="section-note">MOD仕様の再確認用</div></div>
+    <div class="source-list">
+      <a href="https://www.curseforge.com/ark-survival-ascended/mods/configurable-cryopods" target="_blank" rel="noopener">CurseForge — Configurable Cryopods</a>
+      <a href="https://www.curseforge.com/ark-survival-ascended/mods/upgrade-station" target="_blank" rel="noopener">CurseForge — Upgrade Station</a>
+    </div>
+  </section>
+
+  <footer class="footer"><a class="back-link" href="./">← ARK TOPへ戻る</a><br>ARK: Survival Ascended · MOD</footer>
+</main>
+</body>
+</html>
