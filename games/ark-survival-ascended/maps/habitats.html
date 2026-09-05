@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ARK: Survival Ascended のマップ別生物生息地一覧。">
+  <title>生息地 | ARK: Survival Ascended</title>
+  <link rel="stylesheet" href="../../../assets/css/common.css">
+  <style>
+    .browser-tools{position:sticky;top:8px;z-index:20;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:9px;padding:10px;border:1px solid var(--line);border-radius:16px;background:rgba(5,5,5,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .search-input,.group-select{width:100%;border:1px solid #2a2a2a;border-radius:11px;background:#080808;color:#f3f3f3;padding:11px 12px;font:inherit;font-size:13px}
+    .search-input:focus,.group-select:focus{outline:none;border-color:#5a5a5a}
+    .result-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:11px 3px;color:#737373;font-size:11px}
+    .creature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+    .creature-card{position:relative;display:block;min-height:76px;padding:12px 13px;border:1px solid #222;border-radius:13px;background:linear-gradient(145deg,#0b0b0b,#060606);text-decoration:none;transition:.14s ease}
+    .creature-card:hover{transform:translateY(-1px);border-color:#4b4b4b;background:#0d0d0d}
+    .creature-card small{display:block;margin-right:18px;color:#686868;font-size:9px;font-weight:850;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .creature-card strong{display:block;margin-top:6px;color:#e9e9e9;font-size:13px;line-height:1.25;overflow-wrap:anywhere}
+    .creature-card .mini-arrow{position:absolute;right:10px;top:9px;color:#555;font-size:13px}
+    .loading,.load-error{padding:22px;border:1px solid var(--line);border-radius:16px;background:#070707;color:#8b8b8b;font-size:13px}
+    .load-error strong{color:var(--warn)}
+    .source-note{margin-top:14px;padding:13px 15px;border:1px solid #202020;border-radius:13px;background:#060606;color:#777;font-size:11px}
+    .source-note a{color:#aaa}
+    @media(max-width:680px){.browser-tools{position:static;grid-template-columns:1fr}.creature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:410px){.creature-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <a class="brand" id="brandLink" href="map.html">ARK Map</a>
+    <nav class="topnav" aria-label="生息地ナビゲーション">
+      <a id="mapBackTop" href="map.html">← Map TOP</a>
+      <a href="../maps.html">マップ一覧</a>
+      <a href="../">ARK TOP</a>
+    </nav>
+  </header>
+
+  <div class="breadcrumbs"><a href="../../../">ゲームライブラリ</a><span>/</span><a href="../">ARK</a><span>/</span><a href="../maps.html">マップ</a><span>/</span><a id="crumbMapLink" href="map.html">Map</a><span>/</span><span>生息地</span></div>
+  <a class="back-link" id="mapBack" href="map.html">← Map TOPへ戻る</a>
+
+  <section class="hero">
+    <div class="eyebrow">CREATURE HABITATS</div>
+    <h1><span id="mapName">Map</span><br>生息地</h1>
+    <p>このマップに出現する生物を一覧から選択。カードは大量に並んでも探しやすい小型表示で、名前検索と分類絞り込みに対応。</p>
+    <div class="meta"><span class="pill">検索対応</span><span class="pill">公式Wiki参照</span><span class="pill" id="creatureCountPill">読み込み中</span></div>
+  </section>
+
+  <section class="section">
+    <div class="browser-tools">
+      <input class="search-input" id="searchInput" type="search" placeholder="恐竜名を検索 例: Mammoth / マンモス" autocomplete="off">
+      <select class="group-select" id="groupSelect"><option value="">すべての分類</option></select>
+    </div>
+    <div class="result-meta"><span id="resultCount">読み込み中...</span><span>カードを選ぶと個別ページへ</span></div>
+    <div id="loading" class="loading">ARK Official Community Wiki から最新の生物一覧を読み込んでいます...</div>
+    <div class="creature-grid" id="creatureGrid" hidden></div>
+    <div class="source-note" id="sourceNote"></div>
+  </section>
+
+  <footer class="footer"><a class="back-link" id="footerBack" href="map.html">← Map TOPへ戻る</a><br><span id="footerText">ARK: Survival Ascended · 生息地</span></footer>
+</main>
+
+<script src="map-data.js"></script>
+<script>
+(() => {
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('map') || 'astraeos';
+  const map = window.ARK_MAPS?.[slug];
+  const grid = document.getElementById('creatureGrid');
+  const loading = document.getElementById('loading');
+  const searchInput = document.getElementById('searchInput');
+  const groupSelect = document.getElementById('groupSelect');
+  let creatures = [];
+
+  if (!map) {
+    loading.innerHTML = '<strong>マップが見つかりません。</strong> マップ一覧から選び直してください。';
+    return;
+  }
+
+  const mapUrl = `map.html?map=${encodeURIComponent(slug)}`;
+  document.title = `生息地 | ${map.name} | ARK: Survival Ascended`;
+  document.getElementById('mapName').textContent = map.name;
+  document.getElementById('brandLink').textContent = map.name;
+  document.getElementById('brandLink').href = mapUrl;
+  document.getElementById('mapBackTop').textContent = `← ${map.name} TOP`;
+  document.getElementById('mapBackTop').href = mapUrl;
+  document.getElementById('mapBack').textContent = `← ${map.name} TOPへ戻る`;
+  document.getElementById('mapBack').href = mapUrl;
+  document.getElementById('footerBack').textContent = `← ${map.name} TOPへ戻る`;
+  document.getElementById('footerBack').href = mapUrl;
+  document.getElementById('footerText').textContent = `ARK: Survival Ascended · ${map.name} · 生息地`;
+  document.getElementById('crumbMapLink').textContent = map.name;
+  document.getElementById('crumbMapLink').href = mapUrl;
+
+  const wikiUrl = `https://ark.wiki.gg/wiki/${encodeURIComponent(map.wikiPage).replace(/%3A/g, ':')}`;
+  document.getElementById('sourceNote').innerHTML = `一覧の確認元: <a href="${wikiUrl}" target="_blank" rel="noopener">ARK Official Community Wiki — ${map.name}</a>。Wikiの「Creatures」セクションを読み込んでいるため、追加・変更された生物を反映しやすくしています。`;
+
+  function clean(text){return String(text||'').replace(/\[edit\]/gi,'').replace(/\s+/g,' ').trim()}
+  function normalize(text){return clean(text).toLocaleLowerCase('ja').normalize('NFKC')}
+  function baseName(name){return name.replace(/^(Aberrant |Alpha |Astral |Corrupted |Enraged |Lightning |Revenant |Skeletal |Tek |X-)/i,'').trim()}
+  function aliasFor(name){return window.ARK_CREATURE_ALIASES?.[name] || window.ARK_CREATURE_ALIASES?.[baseName(name)] || ''}
+  function validCreatureAnchor(a){
+    const href=a.getAttribute('href')||'';
+    const text=clean(a.textContent);
+    if(!href.startsWith('/wiki/')||!text)return false;
+    const title=decodeURIComponent(href.split('/wiki/')[1]||'');
+    return !/^(File:|Category:|Special:|ARK:|Template:|Help:|Patch|DLC)/i.test(title) && !/^(ARK: Survival|ARK$)/i.test(text);
+  }
+
+  function jsonp(params){
+    return new Promise((resolve,reject)=>{
+      const cb='arkWikiCb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      const script=document.createElement('script');
+      const q=new URLSearchParams({...params,format:'json',callback:cb});
+      const timer=setTimeout(()=>{cleanup();reject(new Error('JSONP timeout'))},15000);
+      function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
+      window[cb]=data=>{cleanup();resolve(data)};
+      script.onerror=()=>{cleanup();reject(new Error('JSONP error'))};
+      script.src='https://ark.wiki.gg/api.php?'+q.toString();
+      document.head.appendChild(script);
+    });
+  }
+
+  async function wikiApi(params){
+    const q=new URLSearchParams({...params,format:'json',origin:'*'});
+    try{
+      const res=await fetch('https://ark.wiki.gg/api.php?'+q.toString(),{mode:'cors'});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      return await res.json();
+    }catch(err){
+      return jsonp(params);
+    }
+  }
+
+  function parseCreatures(html){
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    const headings=[...doc.querySelectorAll('h2')];
+    const start=headings.find(h=>/^Creatures\b/i.test(clean(h.textContent)) || h.querySelector('#Creatures'));
+    if(!start)return [];
+    const found=[];
+    let group='Creatures';
+    let node=start.nextElementSibling;
+    while(node && node.tagName!=='H2'){
+      if(/^H[3-5]$/.test(node.tagName)) group=clean(node.textContent) || group;
+      const lists=node.matches?.('ul,ol') ? [node] : [...node.querySelectorAll?.('ul,ol')||[]];
+      for(const list of lists){
+        for(const li of [...list.children].filter(x=>x.tagName==='LI')){
+          const a=[...li.querySelectorAll('a')].find(validCreatureAnchor);
+          if(!a)continue;
+          const name=clean(a.textContent);
+          const href=a.getAttribute('href');
+          const wikiTitle=decodeURIComponent((href.split('/wiki/')[1]||'').split('#')[0]);
+          if(name && wikiTitle)found.push({name,wikiTitle,group});
+        }
+      }
+      node=node.nextElementSibling;
+    }
+    const unique=new Map();
+    for(const c of found){
+      const key=c.name+'|'+c.wikiTitle;
+      if(!unique.has(key))unique.set(key,c);
+    }
+    return [...unique.values()].sort((a,b)=>a.name.localeCompare(b.name,'en'));
+  }
+
+  function detailUrl(c){
+    const override=window.ARK_CREATURE_OVERRIDES?.[`${slug}|${c.name}`];
+    if(override)return override;
+    const q=new URLSearchParams({map:slug,name:c.name,wiki:c.wikiTitle});
+    return 'creature.html?'+q.toString();
+  }
+
+  function render(){
+    const term=normalize(searchInput.value);
+    const group=groupSelect.value;
+    const filtered=creatures.filter(c=>{
+      if(group && c.group!==group)return false;
+      if(!term)return true;
+      return normalize(c.name+' '+c.wikiTitle+' '+aliasFor(c.name)).includes(term);
+    });
+    grid.innerHTML=filtered.map(c=>`<a class="creature-card" href="${detailUrl(c)}"><span class="mini-arrow">→</span><small>${escapeHtml(c.group)}</small><strong>${escapeHtml(c.name)}</strong></a>`).join('');
+    document.getElementById('resultCount').textContent=`${filtered.length} / ${creatures.length} 件`;
+  }
+
+  function escapeHtml(text){const d=document.createElement('div');d.textContent=String(text||'');return d.innerHTML}
+
+  async function load(){
+    try{
+      const data=await wikiApi({action:'parse',page:map.wikiPage,prop:'text'});
+      const html=data?.parse?.text?.['*'];
+      if(!html)throw new Error('Wiki parse data missing');
+      creatures=parseCreatures(html);
+      if(!creatures.length)throw new Error('Creature list not found');
+      const groups=[...new Set(creatures.map(c=>c.group))].sort((a,b)=>a.localeCompare(b,'en'));
+      groupSelect.innerHTML='<option value="">すべての分類</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
+      loading.hidden=true;grid.hidden=false;
+      document.getElementById('creatureCountPill').textContent=`${creatures.length}生物`;
+      render();
+    }catch(err){
+      loading.className='load-error';
+      loading.innerHTML=`<strong>生物一覧を自動取得できませんでした。</strong><br>公式Wiki側の一時的な制限の可能性があります。<a href="${wikiUrl}" target="_blank" rel="noopener">${map.name} の公式Wiki</a>から確認できます。`;
+      console.error(err);
+    }
+  }
+
+  searchInput.addEventListener('input',render);
+  groupSelect.addEventListener('change',render);
+  load();
+})();
+</script>
+</body>
+</html>
