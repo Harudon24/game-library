@@ -1,0 +1,100 @@
+name: Temporary Astraeos spawn scrape
+
+on:
+  push:
+    paths:
+      - '.github/workflows/tmp-astraeos-spawn-scrape.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scrape Kamigame Astraeos spawn table
+        shell: python
+        run: |
+          import json
+          import re
+          from urllib.parse import urljoin
+
+          import requests
+          from bs4 import BeautifulSoup
+
+          URL = 'https://kamigame.jp/asa/page/365586504895978211.html'
+          headers = {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36'
+          }
+          response = requests.get(URL, headers=headers, timeout=30)
+          response.raise_for_status()
+          soup = BeautifulSoup(response.text, 'html.parser')
+
+          heading = None
+          for tag in soup.find_all(['h1', 'h2', 'h3']):
+              if 'アストレオスの生物スポーンマップ一覧' in tag.get_text(' ', strip=True):
+                  heading = tag
+                  break
+          if heading is None:
+              raise RuntimeError('Target heading not found')
+
+          table = heading.find_next('table')
+          if table is None:
+              raise RuntimeError('Target table not found')
+
+          def candidate_urls(cell):
+              values = []
+              for img in cell.find_all('img'):
+                  for attr in ('src', 'data-src', 'data-original', 'data-lazy-src', 'srcset', 'data-srcset'):
+                      raw = img.get(attr)
+                      if raw:
+                          values.extend(re.split(r'\s*,\s*|\s+', raw))
+              for source in cell.find_all('source'):
+                  for attr in ('src', 'srcset', 'data-srcset'):
+                      raw = source.get(attr)
+                      if raw:
+                          values.extend(re.split(r'\s*,\s*|\s+', raw))
+              result = []
+              for value in values:
+                  value = value.strip()
+                  if not value or value.endswith('w') or value.endswith('x'):
+                      continue
+                  if value.startswith('//'):
+                      value = 'https:' + value
+                  elif value.startswith('/'):
+                      value = urljoin(URL, value)
+                  if value.startswith('http') and value not in result:
+                      result.append(value)
+              return result
+
+          rows = []
+          for tr in table.find_all('tr'):
+              cells = tr.find_all(['th', 'td'], recursive=False)
+              if len(cells) < 2:
+                  continue
+              name = cells[0].get_text(' ', strip=True)
+              if not name or name == '生物':
+                  continue
+              link = cells[0].find('a', href=True)
+              article = urljoin(URL, link['href']) if link else ''
+              text = cells[1].get_text(' ', strip=True)
+              urls = candidate_urls(cells[1])
+              preferred = ''
+              for u in urls:
+                  if 'googleusercontent.com' in u or 'img.kamigame.jp' in u:
+                      preferred = u
+                      break
+              if not preferred and urls:
+                  preferred = urls[0]
+              rows.append({
+                  'name': name,
+                  'article': article,
+                  'image': preferred,
+                  'status': text,
+                  'allImageCandidates': urls,
+              })
+
+          print('ASTRAEOS_JSON_BEGIN')
+          print(json.dumps(rows, ensure_ascii=False, separators=(',', ':')))
+          print('ASTRAEOS_JSON_END')
+          print(f'ROWS={len(rows)} IMAGES={sum(bool(r["image"]) for r in rows)}')
