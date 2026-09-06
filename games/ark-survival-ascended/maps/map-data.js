@@ -6,7 +6,7 @@ window.ARK_MAPS = {
     mapFile: "The Island Topographic Map.jpg",
     type: "Base Map",
     released: "2023-10-25",
-    resourceUrl: null
+    resourceUrl: "the-island/resources.html"
   },
   "scorched-earth": {
     name: "Scorched Earth",
