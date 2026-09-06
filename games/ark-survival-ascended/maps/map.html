@@ -41,7 +41,7 @@
   <footer class="footer"><a class="back-link" href="../maps.html">← マップ一覧へ戻る</a><br><span id="footerMap">ARK: Survival Ascended</span></footer>
 </main>
 
-<script src="map-data.js"></script>
+<script src="map-data.js?v=20260907-1"></script>
 <script>
 (() => {
   const params = new URLSearchParams(location.search);
@@ -62,8 +62,9 @@
   document.getElementById('footerMap').textContent = `ARK: Survival Ascended · ${map.name}`;
 
   const grid = document.getElementById('guideGrid');
-  const resourceCard = map.resourceUrl
-    ? `<a class="card" href="${map.resourceUrl}"><div class="arrow">→</div><small>RESOURCES</small><h3>素材集め</h3><p>素材別のおすすめ恐竜・道具・レベル帯ごとの集め方と、このマップ固有の採取スポット。</p></a>`
+  const resourceUrl = map.resourceUrl || (slug === 'the-island' ? 'the-island/resources.html' : null);
+  const resourceCard = resourceUrl
+    ? `<a class="card" href="${resourceUrl}"><div class="arrow">→</div><small>RESOURCES</small><h3>素材集め</h3><p>素材別のおすすめ恐竜・道具・レベル帯ごとの集め方と、このマップ固有の採取スポット。</p></a>`
     : `<div class="card disabled"><small>RESOURCES · COMING LATER</small><h3>素材集め</h3><p>素材別のおすすめ採取方法と、このマップ固有の採取スポットを今後追加。</p></div>`;
 
   grid.innerHTML = `
