@@ -69,6 +69,7 @@
 
   grid.innerHTML = `
     ${resourceCard}
+    ${slug === 'the-island' ? '<a class="card" href="the-island/progression.html"><div class="arrow">→</div><small>BOSS PROGRESSION</small><h3>ラスボス討伐までの攻略チャート</h3><p>拠点づくりから監督者討伐まで。必要な恐竜・育成・アーティファクトを12段階で順番に確認。</p></a>' : ''}
     <a class="card" href="habitats.html?map=${encodeURIComponent(slug)}">
       <div class="arrow">→</div><small>CREATURE HABITATS</small><h3>生息地</h3>
       <p>このマップに出現する生物を検索し、個別の生息地マップ・基本情報・参考元を確認。</p>
