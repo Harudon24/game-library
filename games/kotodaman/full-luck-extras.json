@@ -1,0 +1,654 @@
+{
+  "updated": "2026-09-14",
+  "scope": "通常降臨一覧に登録されていない満福キャラ。コラボ・クロニクル・特殊イベント等を含む。",
+  "characters": [
+    {
+      "id": "gamewith-574264",
+      "name": "陰陽",
+      "element": "天",
+      "species": "霊",
+      "letter": "い",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/574264"
+    },
+    {
+      "id": "gamewith-574265",
+      "name": "ガブリエル(黄泉のツガイ)",
+      "element": "闇",
+      "species": "霊",
+      "letter": "か",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/574265"
+    },
+    {
+      "id": "gamewith-515386",
+      "name": "ラストオーダー＆アクセラレータ",
+      "element": "天",
+      "species": "英",
+      "letter": "ら",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/515386"
+    },
+    {
+      "id": "gamewith-514051",
+      "name": "ケムンパ(肝試し)",
+      "element": "水",
+      "species": "魔",
+      "letter": "け",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514051"
+    },
+    {
+      "id": "gamewith-174361",
+      "name": "イザナミ",
+      "element": "火",
+      "species": "神",
+      "letter": "い",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/174361"
+    },
+    {
+      "id": "gamewith-201702",
+      "name": "黄泉",
+      "element": "闇",
+      "species": "英",
+      "letter": "よ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/201702"
+    },
+    {
+      "id": "gamewith-514402",
+      "name": "麦野沈利",
+      "element": "木",
+      "species": "英",
+      "letter": "む",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514402"
+    },
+    {
+      "id": "gamewith-514401",
+      "name": "フレンダ＝セイヴェルン",
+      "element": "光",
+      "species": "英",
+      "letter": "ふ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514401"
+    },
+    {
+      "id": "gamewith-514400",
+      "name": "木山春生",
+      "element": "闇",
+      "species": "英",
+      "letter": "き",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514400"
+    },
+    {
+      "id": "gamewith-514403",
+      "name": "アクセラレータ",
+      "element": "冥",
+      "species": "英",
+      "letter": "あ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514403"
+    },
+    {
+      "id": "gamewith-349228",
+      "name": "シーザー",
+      "element": "水",
+      "species": "神",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/349228"
+    },
+    {
+      "id": "gamewith-345837",
+      "name": "コーシュ",
+      "element": "木",
+      "species": "神",
+      "letter": "こ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/345837"
+    },
+    {
+      "id": "gamewith-436988",
+      "name": "ましろ(羽搏き)",
+      "element": "木",
+      "species": "神",
+      "letter": "そ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/436988"
+    },
+    {
+      "id": "gamewith-514052",
+      "name": "タキア(肝試し)",
+      "element": "水",
+      "species": "魔",
+      "letter": "た",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/514052"
+    },
+    {
+      "id": "gamewith-343294",
+      "name": "カーン",
+      "element": "火",
+      "species": "神",
+      "letter": "か",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/343294"
+    },
+    {
+      "id": "gamewith-163073",
+      "name": "サギツネ",
+      "element": "火",
+      "species": "獣",
+      "letter": "さ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/163073"
+    },
+    {
+      "id": "gamewith-480061",
+      "name": "ましろ(芽生え)",
+      "element": "火",
+      "species": "神",
+      "letter": "せ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/480061"
+    },
+    {
+      "id": "gamewith-412542",
+      "name": "ましろ(目覚め)",
+      "element": "水",
+      "species": "神",
+      "letter": "き",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/412542"
+    },
+    {
+      "id": "gamewith-328036",
+      "name": "夏油傑",
+      "element": "天",
+      "species": "英",
+      "letter": "け",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328036"
+    },
+    {
+      "id": "gamewith-414642",
+      "name": "伏黒甚爾(万里ノ鎖)",
+      "element": "天",
+      "species": "英",
+      "letter": "ふ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/414642"
+    },
+    {
+      "id": "gamewith-414641",
+      "name": "伏黒甚爾(天逆鉾)",
+      "element": "冥",
+      "species": "英",
+      "letter": "ふ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/414641"
+    },
+    {
+      "id": "gamewith-512661",
+      "name": "八握剣異戒神将魔虚羅",
+      "element": "天",
+      "species": "霊",
+      "letter": "ま",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/512661"
+    },
+    {
+      "id": "gamewith-511513",
+      "name": "真人(遍殺即霊体)",
+      "element": "冥",
+      "species": "霊",
+      "letter": "ま",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/511513"
+    },
+    {
+      "id": "gamewith-511514",
+      "name": "夏油傑(渋谷事変)",
+      "element": "天",
+      "species": "英",
+      "letter": "け",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/511514"
+    },
+    {
+      "id": "gamewith-328024",
+      "name": "真人",
+      "element": "闇",
+      "species": "霊",
+      "letter": "ま",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328024"
+    },
+    {
+      "id": "gamewith-490389",
+      "name": "クーポ",
+      "element": "火",
+      "species": "魔",
+      "letter": "く",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/490389"
+    },
+    {
+      "id": "gamewith-414640",
+      "name": "五条悟(最強)",
+      "element": "火",
+      "species": "英",
+      "letter": "こ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/414640"
+    },
+    {
+      "id": "gamewith-328023",
+      "name": "花御",
+      "element": "木",
+      "species": "霊",
+      "letter": "は",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328023"
+    },
+    {
+      "id": "gamewith-328022",
+      "name": "漏瑚",
+      "element": "火",
+      "species": "霊",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328022"
+    },
+    {
+      "id": "gamewith-371070",
+      "name": "シーザー(黒珠)",
+      "element": "冥",
+      "species": "神",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/371070"
+    },
+    {
+      "id": "gamewith-366388",
+      "name": "コーシュ(黒珠)",
+      "element": "冥",
+      "species": "神",
+      "letter": "こ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/366388"
+    },
+    {
+      "id": "gamewith-361467",
+      "name": "カーン(黒珠)",
+      "element": "冥",
+      "species": "神",
+      "letter": "か",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/361467"
+    },
+    {
+      "id": "gamewith-440486",
+      "name": "キートルウィトル(願い)",
+      "element": "冥",
+      "species": "神",
+      "letter": "き",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/440486"
+    },
+    {
+      "id": "gamewith-440652",
+      "name": "トドロフローラ(尊源)",
+      "element": "冥",
+      "species": "神",
+      "letter": "と",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/440652"
+    },
+    {
+      "id": "gamewith-432213",
+      "name": "オディルヴィトー(尊源)",
+      "element": "木",
+      "species": "魔",
+      "letter": "お",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/432213"
+    },
+    {
+      "id": "gamewith-429589",
+      "name": "ウタイ(尊源)",
+      "element": "闇",
+      "species": "霊",
+      "letter": "そ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/429589"
+    },
+    {
+      "id": "gamewith-425348",
+      "name": "カレン(精令)",
+      "element": "冥",
+      "species": "神",
+      "letter": "か",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/425348"
+    },
+    {
+      "id": "gamewith-422570",
+      "name": "ンニーロゴ(精令)",
+      "element": "火",
+      "species": "龍",
+      "letter": "せ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/422570"
+    },
+    {
+      "id": "gamewith-416761",
+      "name": "イシュターリア(精令)",
+      "element": "光",
+      "species": "獣",
+      "letter": "さ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/416761"
+    },
+    {
+      "id": "gamewith-412543",
+      "name": "ユーキ(希械)",
+      "element": "冥",
+      "species": "神",
+      "letter": "ゆ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/412543"
+    },
+    {
+      "id": "gamewith-407317",
+      "name": "ユウヅル(希械)",
+      "element": "水",
+      "species": "龍",
+      "letter": "ゆ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/407317"
+    },
+    {
+      "id": "gamewith-468674",
+      "name": "ゾウオーン(廻魂)",
+      "element": "光",
+      "species": "神",
+      "letter": "そ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/468674"
+    },
+    {
+      "id": "gamewith-463054",
+      "name": "ウラブレイヴン(廻魂)",
+      "element": "闇",
+      "species": "龍",
+      "letter": "や",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/463054"
+    },
+    {
+      "id": "gamewith-459394",
+      "name": "オウキニィ",
+      "element": "光",
+      "species": "魔",
+      "letter": "お",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/459394"
+    },
+    {
+      "id": "gamewith-456463",
+      "name": "サン死ゴエモン(廻魂)",
+      "element": "木",
+      "species": "獣",
+      "letter": "さ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/456463"
+    },
+    {
+      "id": "gamewith-452567",
+      "name": "ホムラ",
+      "element": "火",
+      "species": "物",
+      "letter": "ほ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/452567"
+    },
+    {
+      "id": "gamewith-450275",
+      "name": "エンキツネ",
+      "element": "水",
+      "species": "霊",
+      "letter": "え",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/450275"
+    },
+    {
+      "id": "gamewith-490388",
+      "name": "コテン(此方)",
+      "element": "水",
+      "species": "妖",
+      "letter": "こ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/490388"
+    },
+    {
+      "id": "gamewith-484326",
+      "name": "ヨルベ(此方)",
+      "element": "木",
+      "species": "龍",
+      "letter": "よ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/484326"
+    },
+    {
+      "id": "gamewith-482365",
+      "name": "ユーキ(此方)",
+      "element": "火",
+      "species": "魔",
+      "letter": "ゆ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/482365"
+    },
+    {
+      "id": "gamewith-478080",
+      "name": "カイワスプ",
+      "element": "光",
+      "species": "霊",
+      "letter": "か",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/478080"
+    },
+    {
+      "id": "gamewith-328035",
+      "name": "ミゲル",
+      "element": "光",
+      "species": "英",
+      "letter": "み",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328035"
+    },
+    {
+      "id": "gamewith-404103",
+      "name": "シノブ(希械)",
+      "element": "光",
+      "species": "物",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/404103"
+    },
+    {
+      "id": "gamewith-471962",
+      "name": "ココウ(此方)",
+      "element": "闇",
+      "species": "物",
+      "letter": "こ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/471962"
+    },
+    {
+      "id": "gamewith-513235",
+      "name": "シヨウチヨウ(求夢)",
+      "element": "天",
+      "species": "神",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/513235"
+    },
+    {
+      "id": "gamewith-513233",
+      "name": "サースモダイ(月夢)",
+      "element": "水",
+      "species": "魔",
+      "letter": "さ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/513233"
+    },
+    {
+      "id": "gamewith-513234",
+      "name": "ホゾカミュ(深想)",
+      "element": "木",
+      "species": "物",
+      "letter": "ほ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/513234"
+    },
+    {
+      "id": "gamewith-507242",
+      "name": "ノイジーネイシー",
+      "element": "木",
+      "species": "物",
+      "letter": "の",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/507242"
+    },
+    {
+      "id": "gamewith-253801",
+      "name": "赤ずきんノンノ",
+      "element": "火",
+      "species": "英",
+      "letter": "の",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/253801"
+    },
+    {
+      "id": "gamewith-507243",
+      "name": "ゾリドオーダ",
+      "element": "火",
+      "species": "獣",
+      "letter": "そ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/507243"
+    },
+    {
+      "id": "gamewith-502179",
+      "name": "ヤクナンクトーサ",
+      "element": "闇",
+      "species": "妖",
+      "letter": "や",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/502179"
+    },
+    {
+      "id": "gamewith-511511",
+      "name": "陀艮",
+      "element": "水",
+      "species": "霊",
+      "letter": "た",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/511511"
+    },
+    {
+      "id": "gamewith-502180",
+      "name": "ヨクミルノ",
+      "element": "光",
+      "species": "龍",
+      "letter": "よ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/502180"
+    },
+    {
+      "id": "gamewith-497346",
+      "name": "シヨウチヨウ(道化)",
+      "element": "冥",
+      "species": "神",
+      "letter": "し",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/497346"
+    },
+    {
+      "id": "gamewith-497344",
+      "name": "ユーヘイマン",
+      "element": "光",
+      "species": "龍",
+      "letter": "ゆ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/497344"
+    },
+    {
+      "id": "gamewith-497345",
+      "name": "ユーザソルジャー(月夢)",
+      "element": "闇",
+      "species": "妖",
+      "letter": "ゆ",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/497345"
+    },
+    {
+      "id": "gamewith-123839",
+      "name": "リーフ",
+      "element": "木",
+      "species": "獣",
+      "letter": "り",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/123839"
+    },
+    {
+      "id": "gamewith-511512",
+      "name": "脹相",
+      "element": "闇",
+      "species": "英",
+      "letter": "ち",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/511512"
+    },
+    {
+      "id": "gamewith-328025",
+      "name": "虎杖悠仁(宿儺の器)",
+      "element": "冥",
+      "species": "英",
+      "letter": "い",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/328025"
+    },
+    {
+      "id": "gamewith-507246",
+      "name": "ナツ子(幻華祭)(天)",
+      "element": "天",
+      "species": "妖",
+      "letter": "な",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/507246"
+    },
+    {
+      "id": "gamewith-174353",
+      "name": "オラゴン＆リーフ",
+      "element": "火",
+      "species": "英",
+      "letter": "お",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/174353"
+    },
+    {
+      "id": "gamewith-408150",
+      "name": "ンヘループ",
+      "element": "冥",
+      "species": "神",
+      "letter": "ん",
+      "full": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/408150"
+    }
+  ]
+}
