@@ -1,0 +1,15 @@
+{
+  "updated": "2026-09-15",
+  "scope": "チャットで追加した通常降臨一覧外の満福キャラ。コラボ・クロニクル・特殊イベント等を含む。",
+  "characters": [
+    {
+      "id": "official-monst-wakurin",
+      "name": "わくリン",
+      "element": "光",
+      "species": "英",
+      "letter": "わ",
+      "full": true,
+      "reference_url": "https://kotodaman.jp/info/detail/081347cVQ82nH9HS32.html"
+    }
+  ]
+}
