@@ -65,12 +65,13 @@
   $('reset').addEventListener('click', () => { controls.forEach(id => $(id).value = id==='sort'?'difficulty':''); page=1;render(); });
   $('prev').addEventListener('click', () => { page--; render(); $('count').scrollIntoView({block:'start'}); });
   $('next').addEventListener('click', () => { page++; render(); $('count').scrollIntoView({block:'start'}); });
-  Promise.all([load('descents.json'),load('descent-status.json'),load('owned-characters.json'),load('owned-characters-manual.json'),load('full-luck-extras.json')])
-    .then(([d,s,o,m,e]) => {
+  Promise.all([load('descents.json'),load('descent-status.json'),load('owned-characters.json'),load('owned-characters-manual.json'),load('full-luck-extras.json'),load('full-luck-extras-manual.json')])
+    .then(([d,s,o,m,e,em]) => {
       const regular = (d.descents || []).map(row => ({name:row[0], difficulty:row[1], reference_url:d.source_url, category:'regular'}));
       const regularNames=new Set(regular.map(c=>normalize(c.name)));
       const seen=new Set();
-      const extras=(e.characters || []).filter(c=>{const key=normalize(c.name);if(regularNames.has(key)||seen.has(key))return false;seen.add(key);return true;}).map(c=>({...c,difficulty:null,category:'extra'}));
+      const extraSource=[...(e.characters || []),...(em.characters || [])];
+      const extras=extraSource.filter(c=>{const key=normalize(c.name);if(regularNames.has(key)||seen.has(key))return false;seen.add(key);return true;}).map(c=>({...c,difficulty:null,category:'extra'}));
       descents=[...regular,...extras]; status = s.statuses || {};
       $('regularTotal').textContent=regular.length.toLocaleString('ja');
       $('extraTotal').textContent=extras.length.toLocaleString('ja');
@@ -80,7 +81,7 @@
       $('total').textContent=descents.length.toLocaleString('ja');
       $('ownedTotal').textContent=states.filter(x=>x.owned).length.toLocaleString('ja');
       $('fullTotal').textContent=states.filter(x=>x.full).length.toLocaleString('ja');
-      $('updated').textContent=`更新 ${[d.updated,s.updated,o.updated,m.updated,e.updated].filter(Boolean).sort().at(-1) || '不明'}`;
+      $('updated').textContent=`更新 ${[d.updated,s.updated,o.updated,m.updated,e.updated,em.updated].filter(Boolean).sort().at(-1) || '不明'}`;
       render();
     })
     .catch(() => {
