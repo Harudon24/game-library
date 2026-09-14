@@ -47,12 +47,16 @@
   }
   controls.forEach(id => $(id).addEventListener('input', () => { page = 1; render(); }));
   $('reset').addEventListener('click', () => { controls.forEach(id => $(id).value = id === 'sort' ? 'name' : ''); page = 1; render(); });
-  for (const [id, step] of [['prev', -1], ['next', 1]]) $(id).addEventListener('click', () => { page += step; render(); $('count').scrollIntoView({block: 'start'}); });
-  fetch('owned-characters.json', {cache: 'no-cache'})
-    .then(response => { if (!response.ok) throw new Error('load'); return response.json(); })
-    .then(data => {
-      if (!Array.isArray(data.characters) || data.characters.some(c => !c.id || typeof c.name !== 'string') || new Set(data.characters.map(c => c.id)).size !== data.characters.length) throw new Error('data');
-      characters = data.characters; $('total').textContent = characters.length.toLocaleString('ja'); $('updated').textContent = `更新 ${data.updated}`; render();
+  for (const [id, step] of [['prev', -1], ['next', 1]]) $(''+id).addEventListener('click', () => { page += step; render(); $('count').scrollIntoView({block: 'start'}); });
+  const load = path => fetch(path, {cache: 'no-cache'}).then(response => { if (!response.ok) throw new Error('load'); return response.json(); });
+  Promise.all([load('owned-characters.json'), load('owned-characters-manual.json')])
+    .then(([base, manual]) => {
+      const all = [...(base.characters || []), ...(manual.characters || [])];
+      if (!Array.isArray(base.characters) || !Array.isArray(manual.characters) || all.some(c => !c.id || typeof c.name !== 'string') || new Set(all.map(c => c.id)).size !== all.length) throw new Error('data');
+      characters = all;
+      $('total').textContent = characters.length.toLocaleString('ja');
+      $('updated').textContent = `更新 ${[base.updated, manual.updated].filter(Boolean).sort().at(-1) || '不明'}`;
+      render();
     })
     .catch(() => { $('count').textContent = ''; $('updated').textContent = '読み込み失敗'; $('error').hidden = false; $('error').textContent = '所持データを読み込めませんでした。通信状態を確認してページを再読み込みしてください。'; controls.forEach(id => $(id).disabled = true); $('reset').disabled = true; });
 })();
