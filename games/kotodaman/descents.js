@@ -9,8 +9,8 @@
   const pageSize = 60;
   function stateOf(d) {
     const s = status[d.name] || {};
-    const owned = ownedNames.has(normalize(d.name));
     const full = s.full === true || Number(s.fuku) >= Number(s.max_fuku || 99);
+    const owned = full || ownedNames.has(normalize(d.name));
     return {owned, full, s};
   }
   function render() {

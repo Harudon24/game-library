@@ -1,4 +1,38 @@
 {
   "updated": "2026-09-14",
-  "statuses": {}
+  "statuses": {
+    "ツインロースタ": {
+      "full": true
+    },
+    "ドゥレッドキャップ": {
+      "full": true
+    },
+    "ライガーゴイル": {
+      "full": true
+    },
+    "モールト": {
+      "full": true
+    },
+    "ソレイベガ": {
+      "full": true
+    },
+    "ンシルフィール": {
+      "full": true
+    },
+    "ウンディーヴァ": {
+      "full": true
+    },
+    "クラウンケン(降臨)": {
+      "full": true
+    },
+    "ツタナイトメア(降臨)": {
+      "full": true
+    },
+    "イフリートーン": {
+      "full": true
+    },
+    "サーフケイビ": {
+      "full": true
+    }
+  }
 }
