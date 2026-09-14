@@ -33,3 +33,5 @@ Personal static game archive.
 
 - ARK: Survival Ascended
 - Incursion: Red River
+
+- コトダマン（[更新方法](games/kotodaman/README.md)）
