@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "characters": [
     {
       "id": "gamewith-444357",
@@ -10,6 +10,146 @@
       "rarity": 6,
       "unevolved": false,
       "reference_url": "https://gamewith.jp/kotodaman/article/show/444357"
+    },
+    {
+      "id": "gamewith-429585",
+      "name": "ホシグレ(尊源)",
+      "element": "闇",
+      "species": "霊",
+      "letter": "ほ",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/429585"
+    },
+    {
+      "id": "gamewith-404683",
+      "name": "ウ好ミタマ(花嫁)",
+      "element": "光",
+      "species": "物",
+      "letter": "う",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/404683"
+    },
+    {
+      "id": "gamewith-141223",
+      "name": "ハクジョウ(神器)",
+      "element": "闇",
+      "species": "神",
+      "letter": "は",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/141223"
+    },
+    {
+      "id": "gamewith-284798",
+      "name": "バリトα",
+      "element": "光",
+      "species": "物",
+      "letter": "は",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/284798"
+    },
+    {
+      "id": "gamewith-354567",
+      "name": "ハガイダカル",
+      "element": "冥",
+      "species": "神",
+      "letter": "は",
+      "rarity": 5,
+      "unevolved": true,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/354567"
+    },
+    {
+      "id": "gamewith-354566",
+      "name": "ラフラガン",
+      "element": "火",
+      "species": "獣",
+      "letter": "ら",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/354566"
+    },
+    {
+      "id": "gamewith-354564",
+      "name": "ホコルターナ",
+      "element": "木",
+      "species": "霊",
+      "letter": "ほ",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/354564"
+    },
+    {
+      "id": "gamewith-354565",
+      "name": "ニヤ流キツケ",
+      "element": "水",
+      "species": "物",
+      "letter": "に",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/354565"
+    },
+    {
+      "id": "gamewith-435510",
+      "name": "わくリン",
+      "element": "光",
+      "species": "英",
+      "letter": "わ",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/435510"
+    },
+    {
+      "id": "gamewith-574266",
+      "name": "イワン",
+      "element": "冥",
+      "species": "英",
+      "letter": "い",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/574266"
+    },
+    {
+      "id": "gamewith-572949",
+      "name": "うつつ(打棄つ)",
+      "element": "冥",
+      "species": "神",
+      "letter": "う",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/572949"
+    },
+    {
+      "id": "gamewith-568426",
+      "name": "おとぎ",
+      "element": "水",
+      "species": "獣",
+      "letter": "お",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/568426"
+    },
+    {
+      "id": "gamewith-574264",
+      "name": "陰陽",
+      "element": "天",
+      "species": "霊",
+      "letter": "い",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/574264"
+    },
+    {
+      "id": "gamewith-574265",
+      "name": "ガブリエル(黄泉のツガイ)",
+      "element": "闇",
+      "species": "霊",
+      "letter": "か",
+      "rarity": 6,
+      "unevolved": false,
+      "reference_url": "https://gamewith.jp/kotodaman/article/show/574265"
     }
   ]
 }
