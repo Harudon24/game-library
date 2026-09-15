@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "statuses": {
     "ツインロースタ": {
       "full": true
@@ -32,6 +32,9 @@
       "full": true
     },
     "サーフケイビ": {
+      "full": true
+    },
+    "リンドウブルム": {
       "full": true
     }
   }
